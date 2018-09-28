@@ -13,5 +13,15 @@ namespace Gruppeoppgave1.Controllers
         {
             return View();
         }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        public ActionResult Registry()
+        {
+            return View();
+        }
     }
 }
