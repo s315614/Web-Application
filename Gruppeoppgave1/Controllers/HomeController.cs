@@ -12,6 +12,16 @@ namespace Gruppeoppgave1.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            if (Session["LoggetInn"] != null)
+            {
+                bool loggetInn = (bool)Session["LoggetInn"];
+                if (loggetInn)
+                {
+                    return RedirectToAction("MainPage");
+                }
+            }
+            
+
             var db = new DBBruker();
             List<Bruker> alleBrukere = db.alleBrukere();
             return View(alleBrukere);
@@ -21,6 +31,15 @@ namespace Gruppeoppgave1.Controllers
 
         public ActionResult Login()
         {
+            if (Session["LoggetInn"] != null)
+            {
+                bool loggetInn = (bool)Session["LoggetInn"];
+                if (loggetInn)
+                {
+                    return RedirectToAction("MainPage");
+                }
+            }
+
             if (Session["LoggetInn"] == null)
             {
                 Session["LoggetInn"] = false;
@@ -41,8 +60,7 @@ namespace Gruppeoppgave1.Controllers
             if (Bruker_i_DB(innBruker))
             {
                 Session["LoggetInn"] = true;
-                ViewBag.Innlogget = true;
-                return View();
+                return RedirectToAction("MainPage");
             }
             else
             {
@@ -56,6 +74,15 @@ namespace Gruppeoppgave1.Controllers
 
         public ActionResult Registry()
         {
+            if (Session["LoggetInn"] != null)
+            {
+                bool loggetInn = (bool)Session["LoggetInn"];
+                if (loggetInn)
+                {
+                    return RedirectToAction("MainPage");
+                }
+            }
+
             return View();
         }
 
@@ -96,6 +123,30 @@ namespace Gruppeoppgave1.Controllers
 
         }
 
+        public ActionResult MainPage()
+        {
+            if (Session["LoggetInn"] != null)
+            {
+                bool loggetInn = (bool)Session["LoggetInn"];
+                if (loggetInn)
+                {
+                    return View();
+                }
+            }
+            return RedirectToAction("Index");
+            
+        }
+
+    
+        public ActionResult Loggut()
+        {
+            Session["LoggetInn"] = false;
+              
+            return RedirectToAction("Index");
+        }
+
+        
+
         private static bool Bruker_i_DB(Bruker innBruker)
         {
             using (var db = new DBContext())
@@ -115,4 +166,6 @@ namespace Gruppeoppgave1.Controllers
         }
 
     }
+
+   
 }

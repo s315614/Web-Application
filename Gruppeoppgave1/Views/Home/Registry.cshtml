@@ -3,67 +3,100 @@
     ViewBag.Title = "Registry";
 }
 
+<header>
+    <link rel="stylesheet" type="text/css" href="~/Content/Login.css">
+</header>
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand brand"><i class="fa fa-codepen"></i>Movie Purchase</a>
+        </div>
+        <div id="navbar-collapse-02" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li">
+
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="~/Home/Registry"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="/Home/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div>
+</div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-<form class="form-horizontal">
-    <fieldset>
-        <div id="legend">
-            <h2>Register</h2>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <label class="control-label">Fornavn</label>
-                <input type="text" name="Fornavn" class="form-control" placeholder="Fornavn" required>
-                <p class="help-block">Fornavn should be at least 4 characters</p>
-            </div>
-        </div>
 
-        <div class="control-group">
-            <div class="controls">
-                <label class="control-label">Etternavn</label>
-                <input type="text" name="Etternavn" class="form-control" placeholder="Etternavn" required>
-                <p class="help-block">Etternavn should be at least 4 characters</p>
-            </div>
-        </div>
+    
+        <div class="card card-container" style="max-width:450px; padding:20px 120px;">
+            <form class="form-signin">
 
-        <div class="control-group">
-            <label class="control-label">Adresse</label>
-            <input type="text" name="Adresse" class="form-control" placeholder="Adresse" required>
-            <p class="help-block">Adresse should be at least 4 characters</p>
-        </div>
+  
 
-        <div class="control-group">
-            <label class="control-label">Telefon</label>
-            <input type="text" name="Telefon" class="form-control" placeholder="Telefon" required>
-            <p class="help-block">Telefon should be at least 4 characters</p>
-        </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label class="control-label">Fornavn</label>
+                            <input type="text" name="Fornavn" class="form-control" placeholder="Fornavn" required>
+                        </div>
+                    </div>
 
-        <div class="control-group">
-            <label class="control-label">Fødselsdato</label>
-            <input type="text" name="Fødselsdato" class="form-control" placeholder="Fødselsdato" required>
-            <p class="help-block">Fødselsdato should be at least 4 characters</p>
-        </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label class="control-label">Etternavn</label>
+                            <input type="text" name="Etternavn" class="form-control" placeholder="Etternavn" required>
+                            <p/>
+                        </div>
+                    </div>
 
-        <div class="control-group">
-            <label class="control-label">Epost</label>
-            <input type="email" name="Epost" class="form-control" placeholder="Email address" required autofocus>
-            <p class="help-block">Epost should be at least 4 characters</p>
-        </div>
+                    <div class="control-group">
+                        <label class="control-label">Adresse</label>
+                        <input type="text" name="Adresse" class="form-control" placeholder="Adresse" required>
+                        <p />
+                    </div>
 
-        <div class="control-group">
-            <label class="control-label">Passord</label>
-            <input type="password" name="Passord" class="form-control" placeholder="Password" required>
-            <p class="help-block">Passord should be at least 4 characters</p>
-        </div>
+                    <div class="control-group">
+                        <label class="control-label">Telefon</label>
+                        <input type="text" name="Telefon" class="form-control" placeholder="Telefon" required>
+                        <p />
+                    </div>
 
-        <div class="control-group">
-        <button class="btn btn-lg btn-primary btn-signin" type="submit" >Regisrate</button>
+                    <div class="control-group">
+                        <label class="control-label">Fødselsdato</label>
+                        <input type="text" name="Fødselsdato" class="form-control" placeholder="Fødselsdato" required>
+                        <p />
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Epost</label>
+                        <input type="email" name="Epost" class="form-control" placeholder="Email address" required autofocus>
+                        <p />
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Passord</label>
+                        <input type="password" name="Passord" class="form-control" placeholder="Password" required>
+                        <p />
+                    </div>
+
+                    <div class="control-group">
+                        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Registrate</button>
+                    </div>
+            </form>
         </div>
-    </fieldset>
-</form><!-- /form -->
+ 
+    <!-- /form -->
 
 }
