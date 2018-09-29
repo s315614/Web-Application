@@ -16,14 +16,33 @@
         <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
         <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
         <p id="profile-name" class="profile-name-card"></p>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
         <form class="form-signin">
             <span id="reauth-email" class="reauth-email"></span>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+            <div class="control-group">
+                <input type="email" name="Epost" class="form-control" placeholder="Email address" required autofocus>
+            </div>
+            <div class="control-group">
+                <input type="password" name="Passord" class="form-control" placeholder="Password" required>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                @if (ViewBag.Innlogget)
+                {
+                    <p style="color:blue">Logget inn</p>
+                }
+                else
+                {
+                    <p style="color:red">Ikke logget inn</p>
+                }
         </form><!-- /form -->
-        <a href="#" class="forgot-password">
-            Forgot the password?
-        </a>
-    </div><!-- /card-container -->
+
+        }
+            <a href="#" class="forgot-password">
+                Forgot the password?
+            </a>
+        </div><!-- /card-container -->
 </div><!-- /container -->
