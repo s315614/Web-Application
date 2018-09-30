@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -60,9 +61,9 @@ namespace Gruppeoppgave1.Controllers
             if (Bruker_i_DB(innBruker))
             {
                 Session["LoggetInn"] = true;
-                return RedirectToAction("MainPage");
+                string fornavn = Bruker_i_DB_Navn(innBruker);
+                return RedirectToAction("MainPage", "Home", new { name = fornavn });
             }
-            else
             {
                 Session["LoggetInn"] = false;
                 ViewBag.Innlogget = false;
@@ -92,7 +93,7 @@ namespace Gruppeoppgave1.Controllers
             if (!ModelState.IsValid)
             {
                 return View();
-
+                
             }
             using (var db = new DBContext())
             {
@@ -123,18 +124,50 @@ namespace Gruppeoppgave1.Controllers
 
         }
 
-        public ActionResult MainPage()
+        public ActionResult MainPage(string name)
         {
             if (Session["LoggetInn"] != null)
             {
                 bool loggetInn = (bool)Session["LoggetInn"];
                 if (loggetInn)
                 {
-                    return View();
+                    var db = new DBFilmer();
+                    List<Film> alleFilmer = db.alleFilmer();
+                    ViewBag.message = (string)name;
+                    return View(alleFilmer);
                 }
             }
+
             return RedirectToAction("Index");
-            
+
+        }
+
+        public ActionResult Details(int id)
+        {
+
+            using (var db = new DBContext())
+            {
+                try
+                {
+                    Filmer film = db.Filmer.FirstOrDefault
+                    (b => b.Id == id);
+                    Film nyBrukerr = new Film();
+
+                    nyBrukerr.Id = film.Id;
+                    nyBrukerr.Navn = film.Navn;
+                    nyBrukerr.Bilde = film.Bilde;
+                    nyBrukerr.Beskrivelse = film.Beskrivelse;
+                    nyBrukerr.Pris = film.Pris;
+                    nyBrukerr.KategoriId = film.KategoriId;
+
+                    return View(nyBrukerr);
+                }
+                catch (Exception feil)
+                {
+                    return Redirect("http://wwww.google.no");
+                }
+
+            }
         }
 
     
@@ -145,9 +178,31 @@ namespace Gruppeoppgave1.Controllers
             return RedirectToAction("Index");
         }
 
-        
 
-        private static bool Bruker_i_DB(Bruker innBruker)
+        private static bool Film_i_DB(int Id = 0)
+        {
+            using (var db = new DBContext())
+            {
+
+                Filmer funnetFilm = db.Filmer.FirstOrDefault
+                    (b => b.Id == Id);
+
+
+
+                if (funnetFilm == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+                
+
+            }
+        }
+
+            private static bool Bruker_i_DB(Bruker innBruker)
         {
             using (var db = new DBContext())
             {
@@ -164,6 +219,27 @@ namespace Gruppeoppgave1.Controllers
             }
 
         }
+
+        private static string Bruker_i_DB_Navn(Bruker innBruker)
+        {
+            using (var db = new DBContext())
+            {
+                Brukere funnetBruker = db.Brukere.FirstOrDefault
+                    (b => b.Epost == innBruker.Epost && b.Passord == innBruker.Passord);
+                if (funnetBruker == null)
+                {
+                    return "Ukjent";
+                }
+                else
+                {
+                    return funnetBruker.Fornavn;
+                    
+                }
+            }
+
+        }
+
+
 
     }
 

@@ -1,4 +1,6 @@
-﻿@model List<Gruppeoppgave1.Models.Bruker>
+﻿@model List<Gruppeoppgave1.Models.Film>
+
+<link rel="stylesheet" type="text/css" href="~/Content/MainPage.css">
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -14,12 +16,27 @@
         <div id="navbar-collapse-02" class="collapse navbar-collapse">
             <ul class="nav navbar-nav"></ul>
             <ul class="nav navbar-nav navbar-right">
-                <li> @Html.ActionLink("Welcome", "MainPage", "Home")</li>
-                <li><a href="~/Home/Registry"><span class="glyphicon glyphicon-log-out"></span> Sign Up</a></li>
-
-                
-
+                <li> <a href="@Url.Action("MainPage", "Home")">Welcome @ViewBag.message</a></li>
+                <li> @Html.ActionLink("Logout", "Loggut", "Home")</li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div>
 </div>
+
+<div class="container">
+    <h3> Alle filmene</h3>
+    <br>
+
+    @foreach (var film in Model)
+    {
+        <a href="@Url.Action( "Details", "Home", new { id = film.Id , Movie= film.Navn }, null)">
+            <div class="col-xs-3 col-center-block">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h4>@film.Navn</h4>
+            </div>
+        </a>
+    }
+
+
+</div>
+

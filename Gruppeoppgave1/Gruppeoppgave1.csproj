@@ -104,6 +104,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Index.css" />
     <Content Include="Content\Login.css" />
+    <Content Include="Content\MainPage.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -119,13 +120,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DBBruker.cs" />
+    <Compile Include="DBFilmer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Bruker.cs" />
     <Compile Include="Models\Film.cs" />
     <Compile Include="Models\DBContext.cs" />
-    <Compile Include="Models\Kategori.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +143,7 @@
     <Content Include="Views\Home\Registry.cshtml" />
     <Content Include="Views\Home\test.cshtml" />
     <Content Include="Views\Home\MainPage.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

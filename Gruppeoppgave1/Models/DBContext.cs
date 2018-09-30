@@ -27,10 +27,13 @@ namespace Gruppeoppgave1.Models
         [Key]
         public int Id { get; set; }
         public string Navn { get; set; }
+        public byte[] Bilde{ get; set; }
         public string Beskrivelse { get; set; }
         public double Pris { get; set; }
 
-        public virtual List<Kategori> KategoriId { get; set; }
+        public int KategoriId { get; set; }
+
+        public virtual Kategorier Kategorier { get; set; }
     }
 
     public class Kategorier
@@ -38,6 +41,8 @@ namespace Gruppeoppgave1.Models
         [Key]
         public int KategoriId { get; set; }
         public string KatgoriNavn { get; set; }
+
+        public virtual List<Filmer> Filmer { get; set; }
     }
 
     public class DBContext : DbContext
