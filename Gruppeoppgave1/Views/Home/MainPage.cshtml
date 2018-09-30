@@ -16,7 +16,7 @@
         <div id="navbar-collapse-02" class="collapse navbar-collapse">
             <ul class="nav navbar-nav"></ul>
             <ul class="nav navbar-nav navbar-right">
-                <li> <a href="@Url.Action("MainPage", "Home")">Welcome @ViewBag.message</a></li>
+                <li> <a href="@Url.Action("MainPage", "Home")">@ViewBag.message</a></li>
                 <li> @Html.ActionLink("Logout", "Loggut", "Home")</li>
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -29,14 +29,80 @@
 
     @foreach (var film in Model)
     {
-        <a href="@Url.Action( "Details", "Home", new { id = film.Id , Movie= film.Navn }, null)">
+
+        <!-- <a href="@Url.Action( "Details", "Home", new { id = film.Id , Movie= film.Navn }, null)">-->
+        <a data-toggle="modal" data-target="#@film.Id">
             <div class="col-xs-3 col-center-block">
                 <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
                 <h4>@film.Navn</h4>
             </div>
         </a>
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="@film.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel">@film.Navn</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div>
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    Navn
+                                </dt>
+
+                                <dd>
+                                    @film.Navn
+                                </dd>
+
+                                <dt>
+                                    Beskrivelse
+                                </dt>
+
+                                <dd>
+                                    @film.Beskrivelse
+                                </dd>
+
+                                <dt>
+                                    Pris
+                                </dt>
+
+                                <dd>
+                                    @film.Pris
+                                </dd>
+
+                                <dt>
+                                    KategoriId
+                                </dt>
+
+                                <dd>
+                                    @film.KategoriId
+                                </dd>
+
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                   
+                        @Html.ActionLink( "Buy", "Details","Home", new { id = film.Id , Movie= film.Navn }, new {  @class = "btn btn-primary" })
+                            
+
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 
 
 </div>
+
+
 

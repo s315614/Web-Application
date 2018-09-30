@@ -21,13 +21,15 @@ namespace Gruppeoppgave1.Controllers
                     return RedirectToAction("MainPage");
                 }
             }
-            
 
-            var db = new DBBruker();
-            List<Bruker> alleBrukere = db.alleBrukere();
-            return View(alleBrukere);
+            var db = new DBFilmer();
+            List<Film> alleFilmer = db.alleFilmer();
+
+  
+            return View(alleFilmer);
 
         }
+
 
 
         public ActionResult Login()
@@ -126,6 +128,8 @@ namespace Gruppeoppgave1.Controllers
 
         public ActionResult MainPage(string name)
         {
+            Session["payment"] = false;
+
             if (Session["LoggetInn"] != null)
             {
                 bool loggetInn = (bool)Session["LoggetInn"];
@@ -133,7 +137,7 @@ namespace Gruppeoppgave1.Controllers
                 {
                     var db = new DBFilmer();
                     List<Film> alleFilmer = db.alleFilmer();
-                    ViewBag.message = (string)name;
+                    ViewBag.message = "Welcome " +name ;
                     return View(alleFilmer);
                 }
             }
@@ -142,9 +146,16 @@ namespace Gruppeoppgave1.Controllers
 
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
+            Session["payment"] = true;
 
+            bool payment = (bool)Session["payment"];
+            if (!payment || id ==null)
+            {
+                return RedirectToAction("MainPage");
+            }
+           
             using (var db = new DBContext())
             {
                 try
