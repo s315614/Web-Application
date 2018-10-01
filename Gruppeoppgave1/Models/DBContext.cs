@@ -31,7 +31,8 @@ namespace Gruppeoppgave1.Models
         public string Beskrivelse { get; set; }
         public double Pris { get; set; }
 
-        public int KategoriId { get; set; }
+        //public int KategoriId { get; set; }
+
 
         public virtual Kategorier Kategorier { get; set; }
     }
@@ -43,6 +44,7 @@ namespace Gruppeoppgave1.Models
         public string KatgoriNavn { get; set; }
 
         public virtual List<Filmer> Filmer { get; set; }
+
     }
 
     public class DBContext : DbContext
@@ -51,6 +53,7 @@ namespace Gruppeoppgave1.Models
             base("name=Database")
         {
             Database.CreateIfNotExists();
+            Database.SetInitializer (new DBInit());
         }
 
         public DbSet<Filmer> Filmer { get; set; }

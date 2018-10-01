@@ -169,7 +169,7 @@ namespace Gruppeoppgave1.Controllers
                     nyBrukerr.Bilde = film.Bilde;
                     nyBrukerr.Beskrivelse = film.Beskrivelse;
                     nyBrukerr.Pris = film.Pris;
-                    nyBrukerr.KategoriId = film.KategoriId;
+                    //nyBrukerr.KategoriId = film.KategoriId;
 
                     return View(nyBrukerr);
                 }

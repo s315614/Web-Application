@@ -19,7 +19,7 @@ namespace Gruppeoppgave1
                     Bilde = k.Bilde,
                     Beskrivelse = k.Beskrivelse,
                     Pris = k.Pris,
-                    KategoriId = k.Kategorier.KategoriId
+                    KategoriNavn = k.Kategorier.KatgoriNavn
                     
 
                 }).ToList();

@@ -1,5 +1,7 @@
 ﻿@model List<Gruppeoppgave1.Models.Film>
 
+<link rel="stylesheet" type="text/css" href="~/Content/Index.css">
+
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -13,7 +15,7 @@
         </div>
         <div id="navbar-collapse-02" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active">@Html.ActionLink("Home", "Index", "Home")</li">
+                <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
 
 
             </ul>
@@ -33,12 +35,15 @@
 
     @foreach (var film in Model)
     {
+    
+        var base64 = Convert.ToBase64String(@film.Bilde);
+        var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
 
         <!-- <a href="@Url.Action( "Details", "Home", new { id = film.Id , Movie= film.Navn }, null)">-->
         <a data-toggle="modal" data-target="#@film.Id">
             <div class="col-xs-3 col-center-block">
-                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-                <h4>@film.Navn</h4>
+                <img class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
+                <!-- @film.Navn</h4> --><h4>
             </div>
         </a>
 
@@ -56,6 +61,8 @@
                     </div>
 
                     <div class="modal-body">
+
+                        <img style="width:100%; height: 270px;" class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
                         <div>
                             <dl class="dl-horizontal">
                                 <dt>
@@ -65,6 +72,7 @@
                                 <dd>
                                     @film.Navn
                                 </dd>
+
 
                                 <dt>
                                     Beskrivelse
@@ -87,7 +95,7 @@
                                 </dt>
 
                                 <dd>
-                                    @film.KategoriId
+                                    @film.KategoriNavn
                                 </dd>
 
                             </dl>

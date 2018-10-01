@@ -14,7 +14,7 @@ namespace Gruppeoppgave1.Models
         public byte[] Bilde { get; set; }
         public string Beskrivelse { get; set; }
         public double Pris { get; set; }
-        public int KategoriId { get; set; }
+        public string KategoriNavn { get; set; }
 
     }
 }
