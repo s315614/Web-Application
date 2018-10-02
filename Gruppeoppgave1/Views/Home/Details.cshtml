@@ -14,7 +14,7 @@
         <div id="navbar-collapse-02" class="collapse navbar-collapse">
             <ul class="nav navbar-nav"></ul>
             <ul class="nav navbar-nav navbar-right">
-                <li> <a href="@Url.Action("MainPage", "Home")">@ViewBag.message</a></li>
+                <li> @Html.ActionLink("Welcome", "MainPage", "Home")</li>
                 <li> @Html.ActionLink("Logout", "Loggut", "Home")</li>
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -22,11 +22,6 @@
 </div>
 
 <h2>Payment</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true){
 
 
 <div class="col-md-6 offset-md-3">
@@ -107,6 +102,4 @@
         </div>
     </div>
 
-    </div>
-    }
-}
+    
