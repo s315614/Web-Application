@@ -21,7 +21,7 @@
             </div>
             <div id="navbar-collapse-02" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
 
 
                 </ul>
@@ -59,11 +59,12 @@
             </div>
             <br />
             <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
-            @if (!ViewBag.Innlogget)
-            {
-            <p style="color:red">Ikke logget inn</p>
-            }
-           
+            <!--
+        //if (!ViewBag.Innlogget)
+        {
+        <p style="color:red">Ikke logget inn</p>
+        }
+       -->
         </form><!-- /form -->
 
         }

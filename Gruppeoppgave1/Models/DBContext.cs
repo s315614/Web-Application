@@ -20,6 +20,8 @@ namespace Gruppeoppgave1.Models
         public string Passord { get; set; }
         public string Telefon { get; set; }
         public string Fødselsdato { get; set; }
+
+        public virtual List<Ordrer> Ordrer { get; set; }
     }
 
     public class Filmer
@@ -27,10 +29,14 @@ namespace Gruppeoppgave1.Models
         [Key]
         public int Id { get; set; }
         public string Navn { get; set; }
+        public byte[] Bilde{ get; set; }
         public string Beskrivelse { get; set; }
         public double Pris { get; set; }
 
-        public virtual List<Kategori> KategoriId { get; set; }
+        public virtual Kategorier Kategorier { get; set; }
+
+        public virtual List<Ordrer> Ordrer { get; set; }
+
     }
 
     public class Kategorier
@@ -38,6 +44,23 @@ namespace Gruppeoppgave1.Models
         [Key]
         public int KategoriId { get; set; }
         public string KatgoriNavn { get; set; }
+
+        public virtual List<Filmer> Filmer { get; set; }
+
+
+    }
+
+    public class Ordrer
+    {
+        [Key]
+        public int OrdrerId { get; set; }
+        public string OrdreDate { get; set; }
+
+        public Brukere BrukereId { get; set; }
+
+        public Filmer FilmerId { get; set; }
+
+
     }
 
     public class DBContext : DbContext
@@ -46,11 +69,14 @@ namespace Gruppeoppgave1.Models
             base("name=Database")
         {
             Database.CreateIfNotExists();
+            Database.SetInitializer (new DBInit());
         }
 
         public DbSet<Filmer> Filmer { get; set; }
         public DbSet<Brukere> Brukere { get; set; }
         public DbSet<Kategorier> Kategorier { get; set; }
+
+        public DbSet<Ordrer> Ordrer { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

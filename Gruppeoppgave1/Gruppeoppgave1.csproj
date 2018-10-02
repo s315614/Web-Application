@@ -102,9 +102,13 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Image\diehard.jpg" />
+    <Content Include="Content\Image\nemo.jpg" />
     <Content Include="Content\Index.css" />
     <Content Include="Content\Login.css" />
+    <Content Include="Content\MainPage.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="ER.PNG" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
@@ -119,13 +123,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DBBruker.cs" />
+    <Compile Include="DBFilmer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Bruker.cs" />
+    <Compile Include="Models\DBInit.cs" />
     <Compile Include="Models\Film.cs" />
     <Compile Include="Models\DBContext.cs" />
-    <Compile Include="Models\Kategori.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +148,7 @@
     <Content Include="Views\Home\Registry.cshtml" />
     <Content Include="Views\Home\test.cshtml" />
     <Content Include="Views\Home\MainPage.cshtml" />
+    <Content Include="Views\Home\Payment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -152,6 +159,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

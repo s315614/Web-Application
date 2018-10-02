@@ -1,88 +1,113 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
-using System.Data.Entity;
-using System.ComponentModel.DataAnnotations;
-
 
 namespace Gruppeoppgave1.Models
 {
-    public class DBInit : DropCreateDatabaseAlways<DB>
+    public class DBInit : DropCreateDatabaseAlways<DBContext>
     {
-        protected override void Seed(DB context)
+        protected override void Seed(DBContext context)
         {
-            var nyBruker1 = new Bruker
-            {
-                Epost = "myepost@epost.no",
-                Fornavn = "Fornavn",
-                Etternavn = "Etternavn",
-                Adresse = "Oslomet 1, Oslo",
-                Passord = "mypass",
-                Telefon = 12345678,
-                Følsesdato = "01/02/03"
-            };
 
-            var nyBruker2 = new Bruker
+            var nyBruker = new Brukere()
             {
-                Epost = "myepost1@epost.no",
-                Fornavn = "Fornavn1",
-                Etternavn = "Etternavn1",
-                Adresse = "Oslomet 11, Oslo",
-                Passord = "mypass1",
-                Telefon = 12345678,
-                Følsesdato = "01/02/03"
-            };
-            var nyKategori1 = new Kategori
-            {
-                KategoriId = 1,
-                KatgoriNavn = "Komedi"
-            };
-            var nyKategori2 = new Kategori
-            {
-                KategoriId = 2,
-                KatgoriNavn = "Drama"
-            };
+                Epost = "b@b",
+                Fornavn = "Suphakin",
+                Etternavn = "Riemprasert",
+                Telefon = "95238343",
+                Adresse = "Bakkelia 10",
+                Fødselsdato = "12/12-2017",
+                Passord = "123"
 
-            var nyKategori3 = new Kategori
-            {
-                KategoriId = 3,
-                KatgoriNavn = "Horør"
-            };
-
-            var nyFilm1 = new Film
-            {
-                Id = 1,
-                Navn = "Film1",
-                Beskrivelse = "Film1 Beskrivelse",
-                Pris = 50,
-                //KategoriId = nyKategori1
-            };
-            var nyFilm2 = new Film
-            {
-                Id = 2,
-                Navn = "Film2",
-                Beskrivelse = "Film2 Beskrivelse",
-                Pris = 40,
-                //KategoriId = nyKategori2
             };
 
 
-            var nyKategori = new List<Kategori>();
-            nyKategori.Add(nyKategori1);
-            nyKategori.Add(nyKategori2);
-            nyKategori.Add(nyKategori3);
+            var nyKategori1 = new Kategorier()
+            {
+                KatgoriNavn = "Action"
+            };
 
-            var nyFilm = new List<Film>();
-            nyFilm.Add(nyFilm1);
-            nyFilm.Add(nyFilm2);
-
-            var nyBruker = new List<Bruker>();
-            nyBruker.Add(nyBruker1);
-            nyBruker.Add(nyBruker2);
+            var nyKategori2 = new Kategorier()
+            {
+                KatgoriNavn = "Komedie"
+            };
 
 
-           
+            var nyFilm = new Filmer()
+            {
+
+                Navn = "Nemo",
+                Bilde = ImageToArray("nemo.jpg"),
+                Beskrivelse = "En haifilm!",
+                Pris = int.Parse("195"),
+                Kategorier = nyKategori1
+             };
+
+            var nyFilm1 = new Filmer()
+            {
+
+                Navn = "Die hard",
+                Bilde = ImageToArray("diehard.jpg"),
+                Beskrivelse = "En die hard film!",
+                Pris = int.Parse("59"),
+                Kategorier = nyKategori2
+            };
+
+
+            var kategoriList = new List<Kategorier>();
+            kategoriList.Add(nyKategori1);
+            kategoriList.Add(nyKategori2);
+
+            var filmList = new List<Filmer>();
+            filmList.Add(nyFilm);
+            filmList.Add(nyFilm1);
+
+
+
+
+            context.Brukere.Add(nyBruker);
+
+            context.Kategorier.AddRange(kategoriList);
+
+            context.Filmer.AddRange(filmList);
+
+            base.Seed(context);
         }
+
+        public byte[] ImageToArray(string path)
+        {
+            var appDomain = System.AppDomain.CurrentDomain;
+
+            var basePath = appDomain.BaseDirectory;
+
+            Image img = Image.FromFile(Path.Combine(basePath,"Content", "Image", path));
+            
+            byte[] arr;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                arr = ms.ToArray();
+            }
+            return arr;
+        }
+
+        /*
+        public byte[] ImageToArray()
+        {
+            Image img = Image.FromFile(@"C:\Users\Bas\Desktop\test.jpg");
+            byte[] arr;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                arr = ms.ToArray();
+            }
+            return arr;
+        }
+        */
+
     }
 }

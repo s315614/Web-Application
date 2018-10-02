@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,8 +13,10 @@ namespace Gruppeoppgave1.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            
             if (Session["LoggetInn"] != null)
             {
+
                 bool loggetInn = (bool)Session["LoggetInn"];
                 if (loggetInn)
                 {
@@ -22,32 +25,25 @@ namespace Gruppeoppgave1.Controllers
             }
             
 
-            var db = new DBBruker();
-            List<Bruker> alleBrukere = db.alleBrukere();
-            return View(alleBrukere);
+            var db = new DBFilmer();
+            List<Film> alleFilmer = db.alleFilmer();
+            return View(alleFilmer);
 
         }
 
 
+
         public ActionResult Login()
         {
+
             if (Session["LoggetInn"] != null)
             {
+
                 bool loggetInn = (bool)Session["LoggetInn"];
                 if (loggetInn)
                 {
                     return RedirectToAction("MainPage");
                 }
-            }
-
-            if (Session["LoggetInn"] == null)
-            {
-                Session["LoggetInn"] = false;
-                ViewBag.Innlogget = false;
-            }
-            else
-            {
-                ViewBag.Innlogget = (bool)Session["LoggetInn"];
             }
 
             return View();
@@ -60,99 +56,138 @@ namespace Gruppeoppgave1.Controllers
             if (Bruker_i_DB(innBruker))
             {
                 Session["LoggetInn"] = true;
-                return RedirectToAction("MainPage");
+                Session["BrukerId"] = innBruker.Epost;
+                return RedirectToAction("MainPage", "Home");
             }
-            else
-            {
+            
                 Session["LoggetInn"] = false;
-                ViewBag.Innlogget = false;
+                //ViewBag.Innlogget = false;
                 return View();
-            }
+            
         }
 
 
 
         public ActionResult Registry()
         {
-            if (Session["LoggetInn"] != null)
-            {
-                bool loggetInn = (bool)Session["LoggetInn"];
-                if (loggetInn)
-                {
-                    return RedirectToAction("MainPage");
-                }
-            }
 
             return View();
         }
 
+      
         [HttpPost]
         public ActionResult Registry(Bruker innBruker)
         {
-            if (!ModelState.IsValid)
+            var db = new DBBruker();
+            bool OK = db.lagreBruker(innBruker);
+            if (OK)
             {
-                return View();
-
+                return RedirectToAction("Login");
             }
-            using (var db = new DBContext())
-            {
-                try
-                {
-                    var nyBrukerr = new Brukere();
-
-                    nyBrukerr.Epost = innBruker.Epost;
-
-                    nyBrukerr.Fornavn = innBruker.Fornavn;
-                    nyBrukerr.Etternavn = innBruker.Etternavn;
-                    
-                    nyBrukerr.Adresse = innBruker.Adresse;
-                    nyBrukerr.Telefon = innBruker.Telefon;
-                    nyBrukerr.Fødselsdato = innBruker.Fødselsdato;
-                    nyBrukerr.Passord = innBruker.Passord;
-                
-                    db.Brukere.Add(nyBrukerr);
-                    db.SaveChanges();
-                    return RedirectToAction("Login");
-                }
-                catch (Exception feil)
-                {
-                    return RedirectToAction("Index");
-                }
-
-            }
+            return View();
 
         }
 
         public ActionResult MainPage()
         {
+            string epost = (string)Session["BrukerId"];
+
             if (Session["LoggetInn"] != null)
             {
                 bool loggetInn = (bool)Session["LoggetInn"];
                 if (loggetInn)
                 {
-                    return View();
+                    var db = new DBFilmer();
+                    List<Film> alleFilmer = db.alleFilmer();
+                    ViewBag.message = "Welcome " + epost;
+                    return View(alleFilmer);
                 }
             }
+
             return RedirectToAction("Index");
-            
+
+
+
+        }
+
+        public ActionResult Payment(int Id)
+        {
+            if (Session["LoggetInn"] != null)
+            {
+                bool loggetInn = (bool)Session["LoggetInn"];
+                if (loggetInn)
+                {
+                    string epost = (string)Session["BrukerId"];
+                    var db = new DBFilmer();
+                    Film funnetFilm = db.hentFilm(Id);
+                    if (funnetFilm == null)
+                    {
+                        return RedirectToAction("MainPage");
+                    }
+                    else
+                    {
+
+                        ViewBag.message = "Welcome " + epost;
+                        return View(funnetFilm);
+
+                    };
+                }
+            }
+
+            return RedirectToAction("Index");
+
+           
+
+           
+        }
+
+        [HttpPost]
+        public ActionResult Payment(Film innfilm)
+        {
+
+            string epost = (string)Session["BrukerId"];
+
+            using (var db = new DBContext())
+            {
+                var order = new Ordrer();
+                var filmer = db.Filmer.FirstOrDefault(b => b.Id == innfilm.Id);
+                var brukere = db.Brukere.FirstOrDefault(b => b.Epost == epost);
+
+                DateTime date = DateTime.Now;
+
+                order.OrdreDate = date.ToString();
+                order.BrukereId = brukere;
+                order.FilmerId = filmer;
+
+                db.Ordrer.Add(order);
+
+                Session["payment"] = false;
+                db.SaveChanges();
+
+            }
+       
+
+            return RedirectToAction("MainPage");
         }
 
     
         public ActionResult Loggut()
         {
             Session["LoggetInn"] = false;
+            
               
             return RedirectToAction("Index");
         }
 
-        
 
-        private static bool Bruker_i_DB(Bruker innBruker)
+            private static bool Bruker_i_DB(Bruker innBruker)
         {
             using (var db = new DBContext())
             {
                 Brukere funnetBruker = db.Brukere.FirstOrDefault
                     (b => b.Epost == innBruker.Epost && b.Passord == innBruker.Passord);
+
+
                 if (funnetBruker == null)
                 {
                     return false;
