@@ -131,7 +131,10 @@
     <Compile Include="Models\DBInit.cs" />
     <Compile Include="Models\Film.cs" />
     <Compile Include="Models\DBContext.cs" />
+<<<<<<< HEAD
     <Compile Include="Models\Order.cs" />
+=======
+>>>>>>> parent of 2091e0d... validation again
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

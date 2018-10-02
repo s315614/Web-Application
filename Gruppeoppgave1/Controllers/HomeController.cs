@@ -74,7 +74,10 @@ namespace Gruppeoppgave1.Controllers
             return View();
         }
 
+<<<<<<< HEAD
       
+=======
+>>>>>>> parent of 2091e0d... validation again
         [HttpPost]
         public ActionResult Registry(Bruker innBruker)
         {
