@@ -131,6 +131,7 @@
     <Compile Include="Models\DBInit.cs" />
     <Compile Include="Models\Film.cs" />
     <Compile Include="Models\DBContext.cs" />
+    <Compile Include="Models\MinimumAgeAttribute.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

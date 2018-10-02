@@ -74,7 +74,7 @@ namespace Gruppeoppgave1.Controllers
             return View();
         }
 
-      
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Registry(Bruker innBruker)
         {
