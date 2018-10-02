@@ -37,7 +37,7 @@
         <a data-toggle="modal" data-target="#@film.Id">
             <div class="col-xs-3 col-center-block">
                 <img class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
-                <!-- @film.Navn</h4> -->
+                <!-- @film.Navn</h4> --><h4>
             </div>
         </a>
 
@@ -98,7 +98,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                        @Html.ActionLink("Buy", "Payment", "Home", new { id = film.Id }, new { @class = "btn btn-primary" });
+                        @Html.ActionLink("Buy", "Details", "Home", new { id = film.Id, Movie = film.Navn }, new { @class = "btn btn-primary" })
 
 
                     </div>

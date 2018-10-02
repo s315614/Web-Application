@@ -108,7 +108,6 @@
     <Content Include="Content\Login.css" />
     <Content Include="Content\MainPage.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="ER.PNG" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
@@ -131,7 +130,7 @@
     <Compile Include="Models\DBInit.cs" />
     <Compile Include="Models\Film.cs" />
     <Compile Include="Models\DBContext.cs" />
-    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\MinimumAgeAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -148,7 +147,7 @@
     <Content Include="Views\Home\Registry.cshtml" />
     <Content Include="Views\Home\test.cshtml" />
     <Content Include="Views\Home\MainPage.cshtml" />
-    <Content Include="Views\Home\Payment.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
