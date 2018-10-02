@@ -2,101 +2,125 @@
 @{
     ViewBag.Title = "Registry";
 }
-
-<header>
+@model Gruppeoppgave1.Models.Bruker
+<!DOCTYPE html>
+<html>
+<head>
     <link rel="stylesheet" type="text/css" href="~/Content/Login.css">
-</header>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/validation.js"></script>
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand brand"><i class="fa fa-codepen"></i>Movie Purchase</a>
+            </div>
+            <div id="navbar-collapse-02" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li">
 
 
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="#" class="navbar-brand brand"><i class="fa fa-codepen"></i>Movie Purchase</a>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="~/Home/Registry"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="/Home/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
         </div>
-        <div id="navbar-collapse-02" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Home", "Index", "Home")</li">
-
-
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="~/Home/Registry"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="/Home/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-
-            </ul>
-        </div><!-- /.navbar-collapse -->
     </div>
-</div>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+    @using (Html.BeginForm())
+
+    {
+        @Html.AntiForgeryToken()
 
 
-    
+
+
         <div class="card card-container" style="max-width:450px; padding:20px 120px;">
-            <form class="form-signin">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <form id="register-form" class="form-signin">
 
-  
+                <!--       <div class="control-group">
+              <div class="controls">
+                  <label class="control-label">Fornavn</label>
+                  <input type="text" name="fornavn1" class="form-control" placeholder="Fornavn" required>
 
-                    <div class="control-group">
-                        <div class="controls">
-                            <label class="control-label">Fornavn</label>
-                            <input type="text" name="Fornavn" class="form-control" placeholder="Fornavn" required>
-                        </div>
+              </div>
+          </div>
+          -->
+
+                <div class="control-group">
+
+                    <div class="controls">
+                        @Html.LabelFor(model => model.Fornavn, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Fornavn, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Fornavn, "", new { @class = "text-danger" })
                     </div>
+                </div>
 
-                    <div class="control-group">
-                        <div class="controls">
-                            <label class="control-label">Etternavn</label>
-                            <input type="text" name="Etternavn" class="form-control" placeholder="Etternavn" required>
-                            <p/>
-                        </div>
+                <div class="control-group">
+                    <div class="controls">
+                        @Html.LabelFor(model => model.Etternavn, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Etternavn, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Etternavn, "", new { @class = "text-danger" })
                     </div>
+                </div>
 
-                    <div class="control-group">
-                        <label class="control-label">Adresse</label>
-                        <input type="text" name="Adresse" class="form-control" placeholder="Adresse" required>
-                        <p />
-                    </div>
+                <div class="control-group">
+                    @Html.LabelFor(model => model.Adresse, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.Adresse, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Adresse, "", new { @class = "text-danger" })
+                </div>
 
-                    <div class="control-group">
-                        <label class="control-label">Telefon</label>
-                        <input type="text" name="Telefon" class="form-control" placeholder="Telefon" required>
-                        <p />
-                    </div>
+                <div class="control-group">
+                    @Html.LabelFor(model => model.Telefon, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.Telefon, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Telefon, "", new { @class = "text-danger" })
 
-                    <div class="control-group">
-                        <label class="control-label">Fødselsdato</label>
-                        <input type="text" name="Fødselsdato" class="form-control" placeholder="Fødselsdato" required>
-                        <p />
-                    </div>
+                </div>
 
-                    <div class="control-group">
-                        <label class="control-label">Epost</label>
-                        <input type="email" name="Epost" class="form-control" placeholder="Email address" required autofocus>
-                        <p />
-                    </div>
+                <div class="control-group">
+                    @Html.LabelFor(model => model.Fødselsdato, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.Fødselsdato, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Fødselsdato, "", new { @class = "text-danger" })
+                </div>
 
-                    <div class="control-group">
-                        <label class="control-label">Passord</label>
-                        <input type="password" name="Passord" class="form-control" placeholder="Password" required>
-                        <p />
-                    </div>
+                <div class="control-group">
+                    @Html.LabelFor(model => model.Epost, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.Epost, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Epost, "", new { @class = "text-danger" })
+                </div>
 
-                    <div class="control-group">
-                        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Registrate</button>
-                    </div>
+                <div class="control-group">
+                    @Html.LabelFor(model => model.Passord, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.Passord, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Passord, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="control-group">
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" id="submit-button" type="submit">Registrate</button>
+                </div>
             </form>
-        </div>
- 
-    <!-- /form -->
 
-}
+    </div>
+
+
+    <!-- /form -->
+                }
+
+                <script src="~/Scripts/jquery.validate.js"></script>
+                <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+                <script src="~/Scripts/validation.js"></script>
+</body>
+</html>
