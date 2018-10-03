@@ -12,6 +12,7 @@ namespace Gruppeoppgave1.Models
         [Key]
         public int KategoriId { get; set; }
         public string KatgoriNavn { get; set; }
+        
     }
     public class jsKategor
     {

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Gruppeoppgave1.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,6 +15,8 @@ namespace Gruppeoppgave1
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //initialize dbinit
+            Database.SetInitializer(new DBInit());
         }
 
         protected void Application_BeginRequest()

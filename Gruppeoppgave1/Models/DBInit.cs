@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Gruppeoppgave1.Models
 {
-    public class DBInit : DropCreateDatabaseAlways<DBContext>
+    public class DBInit : DropCreateDatabaseIfModelChanges<DBContext>
     {
         protected override void Seed(DBContext context)
         {
