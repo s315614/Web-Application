@@ -7,11 +7,11 @@
         // hentAlleNavn og bygg opp dropdown når siden lastes
 
         $.ajax({
-            url: '/Kunde/hentAlleNavn',
+            url: '/Home/hentAlleNavn',
             type: 'GET',
             dataType: 'json',
-            success: function (jsKunde) {
-                VisDropDown(jsKunde);
+            success: function (jsKategor) {
+                VisDropDown(jsKategor);
             },
             error: function (x, y, z) {
                 alert(x + '\n' + y + '\n' + z);
@@ -23,11 +23,11 @@
         $("#drop").change(function () {
             var id = $(this).val();
             $.ajax({
-                url: '/Kunde/hentKundeInfo/' + id,
+                url: '/Home/hentKatinfo/' + id,
                 type: 'GET',
                 dataType: 'json',
-                success: function (kunde) {
-                    VisInfo(kunde);
+                success: function (Home) {
+                    VisInfo(Home);
                 },
                 error: function (x, y, z) {
                     alert(x + '\n' + y + '\n' + z);
@@ -35,46 +35,20 @@
             });
         });
 
-        // opprett en hendelse som kjøres når registreringsknappen trykkes
+      
 
-        $("#registrer").click(function () {
-
-            // bygg et js objekt fra input feltene
-            var jsInn = {
-                fornavn: $("#fornavn").val(),
-                etternavn: $("#etternavn").val(),
-                adresse: $("#adresse").val(),
-                postnr: $("#postnr").val(),
-                poststed: $("#poststed").val()
-            }
-
-            $.ajax({
-                url: '/Kunde/Register',
-                type: 'POST',
-                data: JSON.stringify(jsInn),
-                contentType: "application/json;charset=utf-8",
-                success: function (ok) {
-                    // kunne ha feilhåndtert evt. feil i registreringen her
-                    window.location.reload();
-                    // reload av vinduet må sje her altså etter at kallet har returnert
-                },
-                error: function (x, y, z) {
-                    alert(x + '\n' + y + '\n' + z);
-                }
-            });
-        })
+        
     })
-    function VisDropDown(jsKunder) {
+    function VisDropDown(jsKategorier) {
         var utStreng = "";
-        for (var i in jsKunder) {
-            utStreng += "<option value='" + jsKunder[i].id + "'>" + jsKunder[i].navn + "</option>";
+        for (var i in jsKategorier) {
+            utStreng += "<option value='" + jsKategorier[i].KategoriId + "'>" + jsKategorier[i].KatgoriNavn + "</option>";
         }
         $("#drop").append(utStreng);
     }
 
-    function VisInfo(kunde) {
-        var utStreng = kunde.fornavn + " " + kunde.etternavn + " " + kunde.adresse + " "
-            + kunde.postnr + " " + kunde.poststed;
+    function VisInfo(Home) {
+        var utStreng = Home.KategoriId;
         $("#visInfo").html(utStreng);
     }
 </script>

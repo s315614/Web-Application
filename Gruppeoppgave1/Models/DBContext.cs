@@ -83,9 +83,5 @@ namespace Gruppeoppgave1.Models
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
     }
-    public class jsKunde
-    {
-        public int id { get; set; }
-        public string navn { get; set; }
-    }
+    
 }

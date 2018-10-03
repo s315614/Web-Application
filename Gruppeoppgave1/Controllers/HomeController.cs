@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace Gruppeoppgave1.Controllers
 {
@@ -29,6 +30,31 @@ namespace Gruppeoppgave1.Controllers
             List<Film> alleFilmer = db.alleFilmer();
             return View(alleFilmer);
 
+        }
+        public string hentAlleNavn()
+        {
+            var db = new DBKategori();
+            List<Katagori> alleKategorier = db.AlleKategorier();
+            var alleNavn = new List<jsKategor>();
+            foreach (Katagori k in alleKategorier)
+            {
+                var ettNavn = new jsKategor();
+                ettNavn.KategoriId = k.KategoriId;
+                ettNavn.KatgoriNavn = k.KatgoriNavn;
+                
+                alleNavn.Add(ettNavn);
+            }
+            var jsonSerializer = new JavaScriptSerializer();
+            string json = jsonSerializer.Serialize(alleNavn);
+            return json;
+        }
+        public string hentKatinfo(int KategoriId)
+        {
+            var db = new DBKategori();
+            Katagori enKategori = db.hentkategori(KategoriId);
+            var jsonSerializer = new JavaScriptSerializer();
+            string json = jsonSerializer.Serialize(enKategori);
+            return json;
         }
 
 
