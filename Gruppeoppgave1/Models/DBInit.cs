@@ -35,6 +35,14 @@ namespace Gruppeoppgave1.Models
             {
                 KatgoriNavn = "Komedie"
             };
+            var nyKategori3 = new Kategorier()
+            {
+                KatgoriNavn = "Drama"
+            };
+            var nyKategori4 = new Kategorier()
+            {
+                KatgoriNavn = "Horror"
+            };
 
 
             var nyFilm = new Filmer()
@@ -61,7 +69,8 @@ namespace Gruppeoppgave1.Models
             var kategoriList = new List<Kategorier>();
             kategoriList.Add(nyKategori1);
             kategoriList.Add(nyKategori2);
-
+            kategoriList.Add(nyKategori3);
+            kategoriList.Add(nyKategori4);
             var filmList = new List<Filmer>();
             filmList.Add(nyFilm);
             filmList.Add(nyFilm1);
