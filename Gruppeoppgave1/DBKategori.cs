@@ -25,17 +25,16 @@ namespace Gruppeoppgave1
         }
         public Katagori hentkategori(int KategoriId)
         {
-            using (var db = new DBContext())
+            DBContext db = new DBContext();
+            Kategorier enDBKat = db.Kategorier.Find(KategoriId);
+
+            var enKat = new Katagori()
             {
-                Kategorier enKategori = db.Kategorier.Find(KategoriId);
-                var hentetKategori = new Katagori()
-                {
-                    KatgoriNavn = enKategori.KatgoriNavn
-
-                };
-
-                return hentetKategori;
-            }
+                KategoriId = enDBKat.KategoriId,
+                KatgoriNavn = enDBKat.KatgoriNavn,
+                
+            };
+            return enKat;
         }
     }
 }

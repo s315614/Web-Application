@@ -50,6 +50,11 @@ namespace Gruppeoppgave1.Models
 
     }
 
+    public class jsKategor
+    {
+        public int KategoriId { get; set; }
+        public string KatgoriNavn { get; set; }
+    }
     public class Ordrer
     {
         [Key]

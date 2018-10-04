@@ -2,6 +2,7 @@
 
 <link rel="stylesheet" type="text/css" href="~/Content/Index.css">
 <script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 <script type="text/javascript">
     $(function () {
         // hentAlleNavn og bygg opp dropdown når siden lastes
@@ -19,6 +20,7 @@
         });
 
         // opprett en hendelse på dropdown-listen når siden lastes
+        //here is the change of the output happens
 
         $("#drop").change(function () {
             var id = $(this).val();
@@ -26,8 +28,8 @@
                 url: '/Home/hentKatinfo/' + id,
                 type: 'GET',
                 dataType: 'json',
-                success: function (Home) {
-                    VisInfo(Home);
+                success: function (kat) {
+                    VisInfo(kat);
                 },
                 error: function (x, y, z) {
                     alert(x + '\n' + y + '\n' + z);
@@ -47,8 +49,8 @@
         $("#drop").append(utStreng);
     }
 
-    function VisInfo(Home) {
-        var utStreng = Home.KategoriId;
+    function VisInfo(kat) {
+        var utStreng = kat.KategoriId + " " + kat.KatgoriNavn;
         $("#visInfo").html(utStreng);
     }
 </script>
@@ -87,8 +89,8 @@
         <select id="drop"></select>
     </div>
 
-    <!--<div id="visInfo">
-    </div>  -->
+    <div id="visInfo">
+    </div>  
     <br>
 
     @foreach (var film in Model)
@@ -106,7 +108,7 @@
         </a>
 
 
-        <div id="visInfo">
+       
             <!-- Modal -->
             <div class="modal fade" id="@film.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -169,7 +171,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+      
             }
 
 
