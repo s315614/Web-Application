@@ -31,33 +31,7 @@ namespace Gruppeoppgave1.Controllers
             return View(alleFilmer);
 
         }
-        public string hentAlleNavn()
-        {
-            var db = new DBKategori();
-            List<Katagori> alleKategorier = db.AlleKategorier();
-            var alleNavn = new List<jsKategor>();
-            foreach (Katagori k in alleKategorier)
-            {
-                var ettNavn = new jsKategor();
-                ettNavn.KategoriId = k.KategoriId;
-                ettNavn.KatgoriNavn = k.KatgoriNavn;
-
-                alleNavn.Add(ettNavn);
-            }
-            var jsonSerializer = new JavaScriptSerializer();
-            string json = jsonSerializer.Serialize(alleNavn);
-            return json;
-        }
-        public string hentKatinfo(int KategoriId)
-        {
-            var db = new DBKategori();
-            Katagori enKategori = db.hentkategori(KategoriId);
-            var jsonSerializer = new JavaScriptSerializer();
-            string json = jsonSerializer.Serialize(enKategori);
-            return json;
-        }
-
-
+      
 
         public ActionResult Login()
         {
@@ -76,6 +50,7 @@ namespace Gruppeoppgave1.Controllers
 
         }
 
+
         [HttpPost]
         public ActionResult Login(Bruker innBruker)
         {
@@ -85,11 +60,10 @@ namespace Gruppeoppgave1.Controllers
                 Session["BrukerId"] = innBruker.Epost;
                 return RedirectToAction("MainPage", "Home");
             }
-            
-                Session["LoggetInn"] = false;
-                //ViewBag.Innlogget = false;
-                return View();
-            
+
+            Session["LoggetInn"] = false;
+            return View();
+
         }
 
 
@@ -200,8 +174,9 @@ namespace Gruppeoppgave1.Controllers
         public ActionResult Loggut()
         {
             Session["LoggetInn"] = false;
-            
-              
+            Session["BrukerId"] = null;
+
+
             return RedirectToAction("Index");
         }
 
@@ -224,6 +199,63 @@ namespace Gruppeoppgave1.Controllers
                 }
             }
 
+        }
+
+        public string hentFilmInneholder(string id)
+        {
+            var db = new DBFilmer();
+
+            List<Film> enFilm = db.hentFilmInnhold(id);
+
+            if (enFilm == null)
+            {
+                return null;
+            }
+
+            foreach (var film in enFilm)
+            {
+                film.BildeTekst = convertByteToImage(film.Bilde);
+            }
+
+            var jsonSerializer = new JavaScriptSerializer();
+            jsonSerializer.MaxJsonLength = Int32.MaxValue;
+            string json = jsonSerializer.Serialize(enFilm);
+            return json;
+        }
+
+
+        public string convertByteToImage(Byte[] image)
+        {
+            var base64 = Convert.ToBase64String(image);
+            var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+
+            return imgSrc;
+        }
+
+        public string hentAlleNavn()
+        {
+            var db = new DBKategori();
+            List<Katagori> alleKategorier = db.AlleKategorier();
+            var alleNavn = new List<jsKategor>();
+            foreach (Katagori k in alleKategorier)
+            {
+                var ettNavn = new jsKategor();
+                ettNavn.KategoriId = k.KategoriId;
+                ettNavn.KatgoriNavn = k.KatgoriNavn;
+
+                alleNavn.Add(ettNavn);
+            }
+            var jsonSerializer = new JavaScriptSerializer();
+            string json = jsonSerializer.Serialize(alleNavn);
+            return json;
+        }
+        public string hentKatinfo(int KategoriId)
+        {
+            var db = new DBKategori();
+            Katagori enKategori = db.hentkategori(KategoriId);
+            var jsonSerializer = new JavaScriptSerializer();
+            string json = jsonSerializer.Serialize(enKategori);
+            return json;
         }
 
     }

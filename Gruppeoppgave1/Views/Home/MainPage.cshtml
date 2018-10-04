@@ -3,6 +3,7 @@
 <link rel="stylesheet" type="text/css" href="~/Content/MainPage.css">
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script type="text/javascript">
+
     $(function () {
         // hentAlleNavn og bygg opp dropdown når siden lastes
 
@@ -34,6 +35,97 @@
                 }
             });
         });
+
+        $("#searchBox").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: '/Home/hentFilmInneholder/' + id,
+                type: 'GET',
+                dataType: 'json',
+                success: function (film) {
+                    visInfoDynamisk(film);
+                },
+                error: function (x, y, z) {
+                    window.location.replace("/Home/MainPage");
+                }
+            });
+        });
+
+        function visInfoDynamisk(film) {
+
+            $("#visFilmer").html("");
+
+            var htmlRow;
+
+            $.each(film, function (i, item) {
+
+                var imgSrc = item.BildeTekst;
+                htmlRow = [
+
+                    '<a data-toggle="modal" data-target="#' + item.Id + '">',
+                    '<div class="col-xs-3 col-center-block">',
+                    '<img class="rounded-circle" src="' + imgSrc + '" alt="Generic placeholder image"/>',
+
+                    '</div>',
+                    '</a>',
+
+                    '<div class="modal fade" id="' + item.Id + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">',
+                    '<div class="modal-dialog" role="document">',
+                    '   <div class="modal-content">',
+                    '      <div class="modal-header">',
+                    '         <h3 class="modal-title" id="exampleModalLabel">' + item.Navn + '</h3>',
+                    '        <button type="button" class="close" data-dismiss="modal" aria-label="Close">',
+                    '           <span aria-hidden="true">&times;</span>',
+                    '      </button>',
+                    ' </div>',
+                    '<div class="modal-body">',
+                    '   <img style="width:100%; height: 270px;" class="rounded-circle" src="' + item.BildeTekst + '" alt="Generic placeholder image">',
+                    '  <div>',
+                    '     <dl class="dl-horizontal">',
+                    '        <dt>',
+                    '           Navn',
+                    '      </dt>',
+                    '     <dd>',
+                    item.Navn,
+                    '   </dd>',
+
+                    '<dt>',
+                    '   Beskrivelse',
+                    ' </dt>',
+                    '<dd>',
+                    item.Beskrivelse,
+                    '</dd>',
+                    '<dt>',
+                    '   Pris',
+                    '</dt>',
+                    '<dd>',
+                    item.Pris,
+                    '</dd>',
+                    '<dt>',
+                    '   KategoriId',
+                    ' </dt>',
+                    '<dd>',
+                    item.KategoriNavn,
+                    '</dd>',
+                    '</dl>',
+                    ' </div>',
+                    ' </div>',
+                    '      <div class="modal-footer">',
+                    '           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>',
+                    '<button> Submit</button> ',
+
+                    '         </div>',
+                    '      </div>',
+                    '   </div>',
+                    '</div>'
+                ];
+
+                $("#visFilmer").append(htmlRow.join(''));
+
+            });
+
+
+        }
 
 
 
@@ -67,6 +159,7 @@
         <div id="navbar-collapse-02" class="collapse navbar-collapse">
             <ul class="nav navbar-nav"></ul>
             <ul class="nav navbar-nav navbar-right">
+                <li> <input id="searchBox" style="margin-top:13px;" type="text" placeholder="Search.."></li>
                 <li> <a href="@Url.Action("MainPage", "Home")">@ViewBag.message</a></li>
                 <li> @Html.ActionLink("Logout", "Loggut", "Home")</li>
             </ul>
@@ -80,87 +173,89 @@
         <select id="drop"></select>
     </div>
     <br>
+    <div id="visFilmer">
+        @foreach (var film in Model)
+        {
 
-    @foreach (var film in Model)
-    {
+            var base64 = Convert.ToBase64String(@film.Bilde);
+            var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
 
-        var base64 = Convert.ToBase64String(@film.Bilde);
-        var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
-
-        <!-- <a href="@Url.Action( "Details", "Home", new { id = film.Id , Movie= film.Navn }, null)">-->
-        <a data-toggle="modal" data-target="#@film.Id">
-            <div class="col-xs-3 col-center-block">
-                <img class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
-                <!-- @film.Navn</h4> -->
-            </div>
-        </a>
-
-
-        <div id="visInfo">
-            <!-- Modal -->
-            <div class="modal fade" id="@film.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title" id="exampleModalLabel">@film.Navn</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <div class="modal-body">
-
-                            <img style="width:100%; height: 270px;" class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
-                            <div>
-                                <dl class="dl-horizontal">
-                                    <dt>
-                                        Navn
-                                    </dt>
-
-                                    <dd>
-                                        @film.Navn
-                                    </dd>
+            <!-- <a href="@Url.Action( "Details", "Home", new { id = film.Id , Movie= film.Navn }, null)">-->
+            <a data-toggle="modal" data-target="#@film.Id">
+                <div class="col-xs-3 col-center-block">
+                    <img class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
+                    <!-- @film.Navn</h4> -->
+                </div>
+            </a>
 
 
-                                    <dt>
-                                        Beskrivelse
-                                    </dt>
-
-                                    <dd>
-                                        @film.Beskrivelse
-                                    </dd>
-
-                                    <dt>
-                                        Pris
-                                    </dt>
-
-                                    <dd>
-                                        @film.Pris
-                                    </dd>
-
-                                    <dt>
-                                        KategoriId
-                                    </dt>
-
-                                    <dd>
-                                        @film.KategoriNavn
-                                    </dd>
-
-                                </dl>
+            <div id="visInfo">
+                <!-- Modal -->
+                <div class="modal fade" id="@film.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="exampleModalLabel">@film.Navn</h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                            @Html.ActionLink("Buy", "Payment", "Home", new { id = film.Id }, new { @class = "btn btn-primary" });
+                            <div class="modal-body">
+
+                                <img style="width:100%; height: 270px;" class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
+                                <div>
+                                    <dl class="dl-horizontal">
+                                        <dt>
+                                            Navn
+                                        </dt>
+
+                                        <dd>
+                                            @film.Navn
+                                        </dd>
 
 
+                                        <dt>
+                                            Beskrivelse
+                                        </dt>
+
+                                        <dd>
+                                            @film.Beskrivelse
+                                        </dd>
+
+                                        <dt>
+                                            Pris
+                                        </dt>
+
+                                        <dd>
+                                            @film.Pris
+                                        </dd>
+
+                                        <dt>
+                                            KategoriId
+                                        </dt>
+
+                                        <dd>
+                                            @film.KategoriNavn
+                                        </dd>
+
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                @Html.ActionLink("Buy", "Payment", "Home", new { id = film.Id }, new { @class = "btn btn-primary" });
+
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-     }
+        }
+    </div>
+   
             
 
 </div>

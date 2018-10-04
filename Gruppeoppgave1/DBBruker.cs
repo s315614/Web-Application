@@ -57,6 +57,8 @@ namespace Gruppeoppgave1
             }
         }
 
+        
+
         public Bruker hentBruker(string epost)
             {
                 using (var db = new DBContext())

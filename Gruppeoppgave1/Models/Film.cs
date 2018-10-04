@@ -12,6 +12,7 @@ namespace Gruppeoppgave1.Models
         public int Id { get; set; }
         public string Navn { get; set; }
         public byte[] Bilde { get; set; }
+        public string BildeTekst { get; set; }
         public string Beskrivelse { get; set; }
         public double Pris { get; set; }
         public string KategoriNavn { get; set; }

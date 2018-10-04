@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Gruppeoppgave1.Models
 {
-    public class DBInit : DropCreateDatabaseIfModelChanges<DBContext>
+    public class DBInit : DropCreateDatabaseAlways<DBContext>
     {
         protected override void Seed(DBContext context)
         {
@@ -35,14 +35,6 @@ namespace Gruppeoppgave1.Models
             {
                 KatgoriNavn = "Komedie"
             };
-            var nyKategori3 = new Kategorier()
-            {
-                KatgoriNavn = "Drama"
-            };
-            var nyKategori4 = new Kategorier()
-            {
-                KatgoriNavn = "Horror"
-            };
 
 
             var nyFilm = new Filmer()
@@ -51,9 +43,9 @@ namespace Gruppeoppgave1.Models
                 Navn = "Nemo",
                 Bilde = ImageToArray("nemo.jpg"),
                 Beskrivelse = "En haifilm!",
-                Pris = int.Parse("195"),
+                Pris = int.Parse("199"),
                 Kategorier = nyKategori1
-             };
+            };
 
             var nyFilm1 = new Filmer()
             {
@@ -65,18 +57,59 @@ namespace Gruppeoppgave1.Models
                 Kategorier = nyKategori2
             };
 
+            var nyFilm2 = new Filmer()
+            {
+
+                Navn = "De utrolig 2",
+                Bilde = ImageToArray("deutrolige2.jpg"),
+                Beskrivelse = "En de utrolige film!",
+                Pris = int.Parse("199"),
+                Kategorier = nyKategori2
+            };
+
+            var nyFilm3 = new Filmer()
+            {
+
+                Navn = "Mamma mia! Here we go again!",
+                Bilde = ImageToArray("mammami.jpg"),
+                Beskrivelse = "En mamma mia film!",
+                Pris = int.Parse("250"),
+                Kategorier = nyKategori2
+            };
+
+            var nyFilm4 = new Filmer()
+            {
+
+                Navn = "Night School",
+                Bilde = ImageToArray("nightschool.jpg"),
+                Beskrivelse = "En night school film!",
+                Pris = int.Parse("250"),
+                Kategorier = nyKategori2
+            };
+
+            var nyFilm5 = new Filmer()
+            {
+
+                Navn = "Mission Impossible Fallout",
+                Bilde = ImageToArray("missionimpossiblefallout.jpg"),
+                Beskrivelse = "En mission impossible film!",
+                Pris = int.Parse("99"),
+                Kategorier = nyKategori2
+            };
+
+
 
             var kategoriList = new List<Kategorier>();
             kategoriList.Add(nyKategori1);
             kategoriList.Add(nyKategori2);
-            kategoriList.Add(nyKategori3);
-            kategoriList.Add(nyKategori4);
+
             var filmList = new List<Filmer>();
             filmList.Add(nyFilm);
             filmList.Add(nyFilm1);
-
-
-
+            filmList.Add(nyFilm2);
+            filmList.Add(nyFilm3);
+            filmList.Add(nyFilm4);
+            filmList.Add(nyFilm5);
 
             context.Brukere.Add(nyBruker);
 
@@ -93,21 +126,8 @@ namespace Gruppeoppgave1.Models
 
             var basePath = appDomain.BaseDirectory;
 
-            Image img = Image.FromFile(Path.Combine(basePath,"Content", "Image", path));
-            
-            byte[] arr;
-            using (MemoryStream ms = new MemoryStream())
-            {
-                img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                arr = ms.ToArray();
-            }
-            return arr;
-        }
+            Image img = Image.FromFile(Path.Combine(basePath, "Content", "Image", path));
 
-        /*
-        public byte[] ImageToArray()
-        {
-            Image img = Image.FromFile(@"C:\Users\Bas\Desktop\test.jpg");
             byte[] arr;
             using (MemoryStream ms = new MemoryStream())
             {
@@ -116,7 +136,6 @@ namespace Gruppeoppgave1.Models
             }
             return arr;
         }
-        */
 
     }
 }

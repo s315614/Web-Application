@@ -74,6 +74,58 @@ namespace Gruppeoppgave1
             }
         }
 
+        public Film hentFilmNavn(string id)
+        {
+            using (var db = new DBContext())
+            {
+                Filmer enFilm = db.Filmer.FirstOrDefault(k => k.Navn == id);
+                //Filmer enFilm = db.Filmer.Find(id);
+
+
+                if (enFilm == null)
+                {
+                    return null;
+                }
+                var hentetFilm = new Film()
+                {
+                    Navn = enFilm.Navn,
+                    Beskrivelse = enFilm.Beskrivelse,
+                    Bilde = enFilm.Bilde,
+
+                    Id = enFilm.Id,
+                    KategoriNavn = enFilm.Kategorier.KatgoriNavn,
+                    Pris = enFilm.Pris
+
+                };
+
+                return hentetFilm;
+            }
+        }
+
+        public List<Film> hentFilmInnhold(string id)
+        {
+            using (var db = new DBContext())
+            {
+
+                List<Film> hentetFilmer = db.Filmer.Where(k => k.Navn.Contains(id)).Select(n => new Film
+                {
+                    Navn = n.Navn,
+                    Id = n.Id,
+                    Beskrivelse = n.Beskrivelse,
+                    Bilde = n.Bilde,
+                    KategoriNavn = n.Kategorier.KatgoriNavn,
+                    Pris = n.Pris
+
+                }).ToList();
+
+                if (hentetFilmer.Count < 1)
+                {
+                    return null;
+                }
+                return hentetFilmer;
+            }
+        }
+
         public bool slett(int id)
         {
             using (var db = new DBContext())
