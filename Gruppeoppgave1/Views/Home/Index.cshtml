@@ -71,185 +71,89 @@
         <select id="drop"></select>
     </div>
     <div id="visInfo">
-<<<<<<< HEAD
     </div>
-    <br>
+        <br>
+        <div id="visFilmer">
+            @foreach (var film in Model)
+            {
 
-    @foreach (var film in Model)
-    {
+                var base64 = Convert.ToBase64String(@film.Bilde);
+                var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
 
-        var base64 = Convert.ToBase64String(@film.Bilde);
-        var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
-
-        <!-- <a href="@Url.Action("Payment", "Home", new { id = film.Id , Movie= film.Navn }, null)">-->
-        <a data-toggle="modal" data-target="#@film.Id">
-            <div class="col-xs-3 col-center-block">
-                <img class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
-                <!-- @film.Navn</h4> --><h4>
-            </div>
-        </a>
-
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="@film.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="exampleModalLabel">@film.Navn</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                <!-- <a href="@Url.Action( "Details", "Home", new { id = film.Id , Movie= film.Navn }, null)">-->
+                <a data-toggle="modal" data-target="#@film.Id">
+                    <div class="col-xs-3 col-center-block">
+                        <img class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
+                        <!-- @film.Navn</h4> -->
                     </div>
-
-                    <div class="modal-body">
-
-                        <img style="width:100%; height: 270px;" class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
-                        <div>
-                            <dl class="dl-horizontal">
-                                <dt>
-                                    Navn
-                                </dt>
-
-                                <dd>
-                                    @film.Navn
-                                </dd>
+                </a>
 
 
-                                <dt>
-                                    Beskrivelse
-                                </dt>
+                <div id="visInfo">
+                    <!-- Modal -->
+                    <div class="modal fade" id="@film.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title" id="exampleModalLabel">@film.Navn</h3>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
 
-                                <dd>
-                                    @film.Beskrivelse
-                                </dd>
+                                <div class="modal-body">
 
-                                <dt>
-                                    Pris
-                                </dt>
+                                    <img style="width:100%; height: 270px;" class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
+                                    <div>
+                                        <dl class="dl-horizontal">
+                                            <dt>
+                                                Navn
+                                            </dt>
 
-                                <dd>
-                                    @film.Pris
-                                </dd>
-
-                                <dt>
-                                    KategoriId
-                                </dt>
-
-                                <dd>
-                                    @film.KategoriNavn
-                                </dd>
-
-                            </dl>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                        @Html.ActionLink("Buy", "Login", "Home", null, new { @class = "btn btn-primary" })
+                                            <dd>
+                                                @film.Navn
+                                            </dd>
 
 
-                    </div>
-                </div>
-            </div>
-        </div>
-=======
+                                            <dt>
+                                                Beskrivelse
+                                            </dt>
 
-    </div>
-    <br>
-    <div id="visFilmer">
-        @foreach (var film in Model)
-        {
+                                            <dd>
+                                                @film.Beskrivelse
+                                            </dd>
 
-            var base64 = Convert.ToBase64String(@film.Bilde);
-            var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                            <dt>
+                                                Pris
+                                            </dt>
 
-            <!-- <a href="@Url.Action( "Details", "Home", new { id = film.Id , Movie= film.Navn }, null)">-->
-            <a data-toggle="modal" data-target="#@film.Id">
-                <div class="col-xs-3 col-center-block">
-                    <img class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
-                    <!-- @film.Navn</h4> -->
-                </div>
-            </a>
+                                            <dd>
+                                                @film.Pris
+                                            </dd>
 
+                                            <dt>
+                                                KategoriId
+                                            </dt>
 
-            <div id="visInfo">
-                <!-- Modal -->
-                <div class="modal fade" id="@film.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="modal-title" id="exampleModalLabel">@film.Navn</h3>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                                            <dd>
+                                                @film.KategoriNavn
+                                            </dd>
 
-                            <div class="modal-body">
+                                        </dl>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                                <img style="width:100%; height: 270px;" class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
-                                <div>
-                                    <dl class="dl-horizontal">
-                                        <dt>
-                                            Navn
-                                        </dt>
-
-                                        <dd>
-                                            @film.Navn
-                                        </dd>
+                                    @Html.ActionLink("Buy", "Login", "Home", null, new { @class = "btn btn-primary" })
 
 
-                                        <dt>
-                                            Beskrivelse
-                                        </dt>
-
-                                        <dd>
-                                            @film.Beskrivelse
-                                        </dd>
-
-                                        <dt>
-                                            Pris
-                                        </dt>
-
-                                        <dd>
-                                            @film.Pris
-                                        </dd>
-
-                                        <dt>
-                                            KategoriId
-                                        </dt>
-
-                                        <dd>
-                                            @film.KategoriNavn
-                                        </dd>
-
-                                    </dl>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                                @Html.ActionLink("Buy", "Login", "Home", null, new { @class = "btn btn-primary" })
-
-
-                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
 
-
-
-</div>
->>>>>>> 34f773b2a380fedc9384a5d766530ad548387cd5
-
-    }
-
-<<<<<<< HEAD
-
-</div>
-=======
->>>>>>> 34f773b2a380fedc9384a5d766530ad548387cd5
 
