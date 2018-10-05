@@ -59,6 +59,7 @@ namespace Gruppeoppgave1.Models
     {
         [Key]
         public int OrdrerId { get; set; }
+
         public string OrdreDate { get; set; }
 
         public Brukere BrukereId { get; set; }

@@ -23,15 +23,16 @@ namespace Gruppeoppgave1
                 return AlleKategorier;
             }
         }
-        public Katagori hentkategori(int KategoriId)
+        public Katagori hentkategori(int id)
         {
             DBContext db = new DBContext();
-            Kategorier enDBKat = db.Kategorier.Find(KategoriId);
+            //Kategorier enDBKat = db.Kategorier.Find(KategoriId);
+            Kategorier enDBKat = db.Kategorier.FirstOrDefault(k=> k.KategoriId == id);
 
             var enKat = new Katagori()
             {
                 KategoriId = enDBKat.KategoriId,
-                KatgoriNavn = enDBKat.KatgoriNavn,
+                KatgoriNavn = enDBKat.KatgoriNavn
                 
             };
             return enKat;

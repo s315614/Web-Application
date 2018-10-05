@@ -1,6 +1,7 @@
 ﻿using Gruppeoppgave1.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -249,12 +250,25 @@ namespace Gruppeoppgave1.Controllers
             string json = jsonSerializer.Serialize(alleNavn);
             return json;
         }
-        public string hentKatinfo(int KategoriId)
+        public string hentKatinfo(int id)
         {
-            var db = new DBKategori();
-            Katagori enKategori = db.hentkategori(KategoriId);
+            var db = new DBFilmer();
+            List<Film> alleFilmerKategori = db.hentFilmKategori(id);
+
+            if (alleFilmerKategori == null)
+            {
+                return null;
+            }
+
+            foreach (var film in alleFilmerKategori)
+            {
+                film.BildeTekst = convertByteToImage(film.Bilde);
+            }
+
+
             var jsonSerializer = new JavaScriptSerializer();
-            string json = jsonSerializer.Serialize(enKategori);
+            jsonSerializer.MaxJsonLength = Int32.MaxValue;
+            string json = jsonSerializer.Serialize(alleFilmerKategori);
             return json;
         }
 
