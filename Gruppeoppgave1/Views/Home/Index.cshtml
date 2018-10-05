@@ -1,59 +1,9 @@
 ﻿@model List<Gruppeoppgave1.Models.Film>
 
-<link rel="stylesheet" type="text/css" href="~/Content/Index.css">
+<link rel="stylesheet" type="text/css" href="~/Content/MainPage.css">
 <script src="~/Scripts/jquery-1.10.2.js"></script>
-<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-<script type="text/javascript">
-    $(function () {
-        // hentAlleNavn og bygg opp dropdown når siden lastes
+<script src="~/Content/ajaxJqueryData.js"></script>
 
-        $.ajax({
-            url: '/Home/hentAlleNavn',
-            type: 'GET',
-            dataType: 'json',
-            success: function (jsKategor) {
-                VisDropDown(jsKategor);
-            },
-            error: function (x, y, z) {
-                alert(x + '\n' + y + '\n' + z);
-            }
-        });
-
-        // opprett en hendelse på dropdown-listen når siden lastes
-        //here is the change of the output happens
-
-        $("#drop").change(function () {
-            var id = $(this).val();
-            $.ajax({
-                url: '/Home/hentKatinfo/' + id,
-                type: 'GET',
-                dataType: 'json',
-                success: function (kat) {
-                    VisInfo(kat);
-                },
-                error: function (x, y, z) {
-                    alert(x + '\n' + y + '\n' + z);
-                }
-            });
-        });
-
-
-
-
-    })
-    function VisDropDown(jsKategorier) {
-        var utStreng = "";
-        for (var i in jsKategorier) {
-            utStreng += "<option value='" + jsKategorier[i].KategoriId + "'>" + jsKategorier[i].KatgoriNavn + "</option>";
-        }
-        $("#drop").append(utStreng);
-    }
-
-    function VisInfo(kat) {
-        var utStreng = kat.KategoriId + " " + kat.KatgoriNavn;
-        $("#visInfo").html(utStreng);
-    }
-</script>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -73,7 +23,7 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>
+                <li> <input id="searchBox" style="margin-top:13px;" type="text" placeholder="Search.."></li>
                 <li><a href="~/Home/Registry"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                 <li><a href="/Home/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 
@@ -83,97 +33,100 @@
 </div>
 
 <div class="container">
-    <h3> Alle filmene</h3>
-    <!--Drop down menu is placed here-->
+    <h3> Filmer</h3>
     <div id="dropDown">
         <select id="drop"></select>
     </div>
-
     <div id="visInfo">
-    </div>  
+
+    </div>
     <br>
+    <div id="visFilmer">
+        @foreach (var film in Model)
+        {
 
-    @foreach (var film in Model)
-    {
+            var base64 = Convert.ToBase64String(@film.Bilde);
+            var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
 
-        var base64 = Convert.ToBase64String(@film.Bilde);
-        var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
-
-        <!-- <a href="@Url.Action("Payment", "Home", new { id = film.Id , Movie= film.Navn }, null)">-->
-        <a data-toggle="modal" data-target="#@film.Id">
-            <div class="col-xs-3 col-center-block">
-                <img class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
-                <!-- @film.Navn</h4> --><h4>
-            </div>
-        </a>
-
-
-       
-            <!-- Modal -->
-            <div class="modal fade" id="@film.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title" id="exampleModalLabel">@film.Navn</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <div class="modal-body">
-
-                            <img style="width:100%; height: 270px;" class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
-                            <div>
-                                <dl class="dl-horizontal">
-                                    <dt>
-                                        Navn
-                                    </dt>
-
-                                    <dd>
-                                        @film.Navn
-                                    </dd>
+            <!-- <a href="@Url.Action( "Details", "Home", new { id = film.Id , Movie= film.Navn }, null)">-->
+            <a data-toggle="modal" data-target="#@film.Id">
+                <div class="col-xs-3 col-center-block">
+                    <img class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
+                    <!-- @film.Navn</h4> -->
+                </div>
+            </a>
 
 
-                                    <dt>
-                                        Beskrivelse
-                                    </dt>
-
-                                    <dd>
-                                        @film.Beskrivelse
-                                    </dd>
-
-                                    <dt>
-                                        Pris
-                                    </dt>
-
-                                    <dd>
-                                        @film.Pris
-                                    </dd>
-
-                                    <dt>
-                                        KategoriId
-                                    </dt>
-
-                                    <dd>
-                                        @film.KategoriNavn
-                                    </dd>
-
-                                </dl>
+            <div id="visInfo">
+                <!-- Modal -->
+                <div class="modal fade" id="@film.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="exampleModalLabel">@film.Navn</h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                            @Html.ActionLink("Buy", "Login", "Home", null, new { @class = "btn btn-primary" })
+                            <div class="modal-body">
+
+                                <img style="width:100%; height: 270px;" class="rounded-circle" src="@imgSrc" alt="Generic placeholder image">
+                                <div>
+                                    <dl class="dl-horizontal">
+                                        <dt>
+                                            Navn
+                                        </dt>
+
+                                        <dd>
+                                            @film.Navn
+                                        </dd>
 
 
+                                        <dt>
+                                            Beskrivelse
+                                        </dt>
+
+                                        <dd>
+                                            @film.Beskrivelse
+                                        </dd>
+
+                                        <dt>
+                                            Pris
+                                        </dt>
+
+                                        <dd>
+                                            @film.Pris
+                                        </dd>
+
+                                        <dt>
+                                            KategoriId
+                                        </dt>
+
+                                        <dd>
+                                            @film.KategoriNavn
+                                        </dd>
+
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                @Html.ActionLink("Buy", "Login", "Home", null, new { @class = "btn btn-primary" })
+
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-      
-            }
+        }
+    </div>
 
 
-        </div>
+
+</div>
+
+
 

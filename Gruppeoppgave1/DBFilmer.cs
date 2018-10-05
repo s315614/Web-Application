@@ -126,6 +126,32 @@ namespace Gruppeoppgave1
             }
         }
 
+        public List<Film> hentFilmKategori(int id)
+        {
+            using (var db = new DBContext())
+            {
+
+                List<Film> hentetFilmer = db.Filmer.Where(k => k.Kategorier.KategoriId == id).Select(n => new Film
+                {
+                    Navn = n.Navn,
+                    Id = n.Id,
+                    Beskrivelse = n.Beskrivelse,
+                    Bilde = n.Bilde,
+                    KategoriNavn = n.Kategorier.KatgoriNavn,
+                    Pris = n.Pris
+
+                }).ToList();
+
+                if (hentetFilmer.Count < 1)
+                {
+                    return null;
+                }
+                return hentetFilmer;
+            }
+        }
+
+
+
         public bool slett(int id)
         {
             using (var db = new DBContext())
