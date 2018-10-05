@@ -1,4 +1,5 @@
-﻿
+﻿@model Gruppeoppgave1.Models.Bruker
+
 @{
     ViewBag.Title = "Login";
 }
@@ -9,30 +10,30 @@
 
 
 <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="#" class="navbar-brand brand"><i class="fa fa-codepen"></i>Movie Purchase</a>
-            </div>
-            <div id="navbar-collapse-02" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-
-
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="~/Home/Registry"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li class="active"><a href="/Home/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-
-                </ul>
-            </div><!-- /.navbar-collapse -->
+    <div class="container">
+        <div class="navbar-header">
+            <button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand brand"><i class="fa fa-codepen"></i>Movie Purchase</a>
         </div>
+        <div id="navbar-collapse-02" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="~/Home/Registry"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li class="active"><a href="/Home/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
     </div>
+</div>
 
 <!--
     you can substitue the span of reauth email for a input with the email and
@@ -46,30 +47,33 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true)
+           
 
         <form class="form-signin">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <span id="reauth-email" class="reauth-email"></span>
             <div class="control-group">
-                <input type="email" name="Epost" class="form-control" placeholder="Email address" required autofocus>
+                <input type="text" name="Epost" class="form-control" placeholder="Epost">
+                @Html.ValidationMessageFor(model => model.Epost, "", new { @class = "text-danger" })
             </div>
             <div style="padding:2%;"></div>
             <div class="control-group">
-                <input type="password" name="Passord" class="form-control" placeholder="Password" required>
+                <input type="password" name="Passord" class="form-control" placeholder="Passord">
+                @Html.ValidationMessageFor(model => model.Passord, "", new { @class = "text-danger" })
             </div>
             <br />
             <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
             <!--
-        if (!ViewBag.Innlogget)
-        {
-        <p style="color:red">Feil brukernavn og passord</p>
-        }
-       -->
+     if (!ViewBag.Innlogget)
+     {
+     <p style="color:red">Feil brukernavn og passord</p>
+     }
+    -->
         </form><!-- /form -->
 
         }
-            <a href="#" class="forgot-password">
-                Forgot the password?
-            </a>
-        </div><!-- /card-container -->
+        <a href="#" class="forgot-password">
+            Forgot the password?
+        </a>
+    </div><!-- /card-container -->
 </div><!-- /container -->
