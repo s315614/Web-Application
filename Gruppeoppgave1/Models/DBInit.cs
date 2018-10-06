@@ -15,7 +15,7 @@ namespace Gruppeoppgave1.Models
 
             var nyBruker = new Brukere()
             {
-                Epost = "b@bob.bo",
+                Epost = "admin@gmail.com",
                 Fornavn = "Suphakin",
                 Etternavn = "Riemprasert",
                 Telefon = "95238343",

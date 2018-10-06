@@ -47,6 +47,7 @@ namespace Gruppeoppgave1.Controllers
                 }
             }
 
+            ViewBag.feilBrukernavnPassord = false;
             return View();
 
         }
@@ -63,6 +64,7 @@ namespace Gruppeoppgave1.Controllers
             }
 
             Session["LoggetInn"] = false;
+            ViewBag.feilBrukernavnPassord = true;
             return View();
 
         }
