@@ -13,18 +13,7 @@ namespace Gruppeoppgave1.Models
         protected override void Seed(DBContext context)
         {
 
-            var nyBruker = new Brukere()
-            {
-                Epost = "admin@gmail.com",
-                Fornavn = "Suphakin",
-                Etternavn = "Riemprasert",
-                Telefon = "95238343",
-                Adresse = "Bakkelia 10",
-                Fødselsdato = "2017-12-12",
-                Passord = "123456"
-
-            };
-
+            
 
             var nyKategori1 = new Kategorier()
             {
@@ -381,7 +370,7 @@ namespace Gruppeoppgave1.Models
             filmList.Add(nyFilm31);
 
 
-            context.Brukere.Add(nyBruker);
+            //context.Brukere.Add(nyBruker);
 
             context.Kategorier.AddRange(kategoriList);
 
@@ -406,6 +395,8 @@ namespace Gruppeoppgave1.Models
             }
             return arr;
         }
+
+        
 
     }
 }

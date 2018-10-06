@@ -8,25 +8,7 @@ namespace Gruppeoppgave1
 {
     public class DBBruker
     {
-        public List<Bruker> alleBrukere()
-        {
-            using (var db = new DBContext())
-            {
-                List<Bruker> alleBrukere = db.Brukere.Select(k => new Bruker
-                {
-                    Epost = k.Epost,
-                    Fornavn = k.Fornavn,
-                    Etternavn = k.Etternavn,
-                    Adresse = k.Adresse,
-                    Passord = k.Passord,
-                    Telefon = k.Telefon,
-                    Fødselsdato = k.Fødselsdato
-                }).ToList();
-
-                return alleBrukere;
-            }
-        }
-
+     
         public bool lagreBruker(Bruker innBruker)
         {
 
@@ -35,6 +17,7 @@ namespace Gruppeoppgave1
                 try
                 {
                     var nyBrukerRad = new Brukere();
+                    byte[] passord = lagHash(innBruker.Passord);
 
                     nyBrukerRad.Epost = innBruker.Epost;
                     nyBrukerRad.Fornavn = innBruker.Fornavn;
@@ -43,7 +26,7 @@ namespace Gruppeoppgave1
                     nyBrukerRad.Adresse = innBruker.Adresse;
                     nyBrukerRad.Telefon = innBruker.Telefon;
                     nyBrukerRad.Fødselsdato = innBruker.Fødselsdato;
-                    nyBrukerRad.Passord = innBruker.Passord;
+                    nyBrukerRad.Passord = passord;
 
                     db.Brukere.Add(nyBrukerRad);
                     db.SaveChanges();
@@ -58,29 +41,6 @@ namespace Gruppeoppgave1
         }
 
         
-
-        public Bruker hentBruker(string epost)
-            {
-                using (var db = new DBContext())
-                {
-                    Brukere enBruker = db.Brukere.Find(epost);
-                    var hentetBruker = new Bruker()
-                    {
-                        Epost = enBruker.Epost,
-                        Fornavn = enBruker.Fornavn,
-                        Etternavn = enBruker.Etternavn,
-                        Adresse = enBruker.Adresse,
-                        Telefon = enBruker.Telefon,
-                        Fødselsdato = enBruker.Fødselsdato,
-                        Passord = enBruker.Passord
-                    };
-
-                    return hentetBruker;
-                }
-            }
-
-
-
 
 
 
@@ -101,6 +61,16 @@ namespace Gruppeoppgave1
                 }
             }
         }
+
+        private static byte[] lagHash(string innPassord)
+        {
+            byte[] innData, utData;
+            var algoritme = System.Security.Cryptography.SHA256.Create();
+            innData = System.Text.Encoding.ASCII.GetBytes(innPassord);
+            utData = algoritme.ComputeHash(innData);
+            return utData;
+        }
+
 
 
 

@@ -17,7 +17,7 @@ namespace Gruppeoppgave1.Models
         public string Fornavn { get; set; }
         public string Etternavn { get; set; }
         public string Adresse { get; set; }
-        public string Passord { get; set; }
+        public byte[] Passord { get; set; }
         public string Telefon { get; set; }
         public string Fødselsdato { get; set; }
 

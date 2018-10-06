@@ -188,8 +188,9 @@ namespace Gruppeoppgave1.Controllers
         {
             using (var db = new DBContext())
             {
+                byte[] passord = lagHash(innBruker.Passord);
                 Brukere funnetBruker = db.Brukere.FirstOrDefault
-                    (b => b.Epost == innBruker.Epost && b.Passord == innBruker.Passord);
+                    (b => b.Epost == innBruker.Epost && b.Passord == passord);
 
 
                 if (funnetBruker == null)
@@ -272,6 +273,15 @@ namespace Gruppeoppgave1.Controllers
             jsonSerializer.MaxJsonLength = Int32.MaxValue;
             string json = jsonSerializer.Serialize(alleFilmerKategori);
             return json;
+        }
+
+        private static byte[] lagHash(string innPassord)
+        {
+            byte[] innData, utData;
+            var algoritme = System.Security.Cryptography.SHA256.Create();
+            innData = System.Text.Encoding.ASCII.GetBytes(innPassord);
+            utData = algoritme.ComputeHash(innData);
+            return utData;
         }
 
     }
