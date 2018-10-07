@@ -5,7 +5,7 @@
 <script src="~/Content/ajaxJqueryIndex.js"></script>
 
 
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top" style="background-color:black; font-size:18px">
     <div class="container">
         <div class="navbar-header">
             <button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
@@ -14,7 +14,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="#" class="navbar-brand brand"><i class="fa fa-codepen"></i>Movie Purchase</a>
+            <a href="~/Home/Index" class="navbar-brand brand"><i class="fa fa-codepen"></i>Movie Purchase</a>
         </div>
         <div id="navbar-collapse-02" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -23,7 +23,7 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li> <input id="searchBox" style="margin-top:13px;" type="text" placeholder="Search.."></li>
+                <li> <input id="searchBox" style="margin-top:10px;" type="text" placeholder="Search.."></li>
                 <li><a href="~/Home/Registry"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                 <li><a href="/Home/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 
@@ -65,13 +65,20 @@
 </div>
 
 <div class="container">
-    <h3> Filmer</h3>
-    <div id="dropDown">
-        <select id="drop"></select>
+
+    <div style="width:100%;">
+        <h2> Filmer</h2>
+        <div id="dropDown" style="float:right; margin-top:-35px;">
+            <select id="drop"></select>
+        </div>
     </div>
-    <div id="visInfo">
-    </div>
+    
+    
+    <div id="empty">
         <br>
+
+    </div>
+    
         <div id="visFilmer">
             @foreach (var film in Model)
             {
@@ -154,5 +161,6 @@
                 </div>
             }
         </div>
+    </div>
 
 

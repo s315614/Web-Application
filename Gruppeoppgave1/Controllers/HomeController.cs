@@ -102,15 +102,37 @@ namespace Gruppeoppgave1.Controllers
                 {
                     var db = new DBFilmer();
                     List<Film> alleFilmer = db.alleFilmer();
-                    ViewBag.message = "Welcome " + epost;
+                    ViewBag.message =  epost;
                     return View(alleFilmer);
                 }
             }
 
             return RedirectToAction("Index");
 
+        }
 
+        public ActionResult ListProfile()
+        {
+            string epost = (string)Session["BrukerId"];
 
+            if (Session["LoggetInn"] != null)
+            {
+                bool loggetInn = (bool)Session["LoggetInn"];
+                if (loggetInn)
+                {
+                    var db = new DBOrder();
+                    List<Order> alleOrdere = db.hentOrderInnhold(epost);
+                    if(alleOrdere == null)
+                    {
+                        alleOrdere = new List<Order>();
+                        return View(alleOrdere);
+                    }
+                    return View(alleOrdere);
+                }
+            }
+
+            return RedirectToAction("Index");
+           
         }
 
         public ActionResult Payment(int Id)

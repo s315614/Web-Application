@@ -157,6 +157,7 @@
     <Compile Include="DBBruker.cs" />
     <Compile Include="DBFilmer.cs" />
     <Compile Include="DBKategori.cs" />
+    <Compile Include="DBOrder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -183,6 +184,7 @@
     <Content Include="Views\Home\Registry.cshtml" />
     <Content Include="Views\Home\MainPage.cshtml" />
     <Content Include="Views\Home\Payment.cshtml" />
+    <Content Include="Views\Home\ListProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
