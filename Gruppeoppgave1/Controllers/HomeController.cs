@@ -82,7 +82,7 @@ namespace Gruppeoppgave1.Controllers
 
         public ActionResult Registry()
         {
-
+            ViewBag.finnesAllerede = false;
             return View();
         }
 
@@ -90,6 +90,7 @@ namespace Gruppeoppgave1.Controllers
         [HttpPost]
         public ActionResult Registry(Bruker innBruker)
         {
+            ViewBag.finnesAllerede = false;
             var db = new DBBruker();
             bool OK = db.lagreBruker(innBruker);
             if (OK)
@@ -98,6 +99,7 @@ namespace Gruppeoppgave1.Controllers
                 return RedirectToAction("Login");
             }
 
+            ViewBag.finnesAllerede = true;
             ViewBag.ikkelagret = true;
             return View();
 

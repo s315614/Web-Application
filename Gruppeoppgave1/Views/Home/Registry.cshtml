@@ -103,11 +103,21 @@
                     <p />
                 </div>
 
+                @if (!ViewBag.finnesAllerede)
+                {
+                    <p></p>
+                }
+                else
+                {
+                    <p style="color:red;">Feil! Brukeren finnes allerede, prøv noe nytt!</p>
+                }
+
                 <div class="control-group">
                     <button class="btn btn-success btn-lg btn-primary btn-block btn-signin" type="submit">Registrate</button>
                 </div>
             </form>
         </div>
+
 
         <!-- /form -->
 
