@@ -48,14 +48,19 @@
         {
             @Html.AntiForgeryToken()
 
-            if (ViewBag.registrert)
-            {
-                <p style="color:blue">Du er nå registrert! Vennligst fyll under for å logge inn!</p>
-            }
-            else
-            {
-                <p></p>
-            }
+
+        if (ViewBag.registrert == true)
+        {
+            <p style="color:blue">Du er nå registrert! Vennligst fyll under for å logge inn!</p>
+        }
+        else
+        {
+            <p></p>
+        }
+
+            <div>
+                @ViewBag.registrert
+            </div>
             <form class="form-signin">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <span id="reauth-email" class="reauth-email"></span>

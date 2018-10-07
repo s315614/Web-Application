@@ -56,7 +56,7 @@ namespace Gruppeoppgave1
             }
         }
 
-        public Film hentFilm(int id)
+        public Film hentFilm(int? id)
         {
             using (var db = new DBContext())
             {

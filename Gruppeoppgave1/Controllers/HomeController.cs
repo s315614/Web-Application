@@ -40,12 +40,9 @@ namespace Gruppeoppgave1.Controllers
                 {
                     ViewBag.registrert = true;
                 }
-
-
             }
-            else ViewBag.registrert = false;
-
-            Session["Registrert"] = null;
+            else
+                ViewBag.registrert = false;
 
             if (Session["LoggetInn"] != null)
             {
@@ -58,6 +55,7 @@ namespace Gruppeoppgave1.Controllers
                 }
             }
 
+            Session["Registrert"] = false;
             ViewBag.feilBrukernavnPassord = false;
             return View();
 
@@ -147,9 +145,9 @@ namespace Gruppeoppgave1.Controllers
            
         }
 
-        public ActionResult Payment(int Id)
+        public ActionResult Payment(int? Id)
         {
-            if (Session["LoggetInn"] != null)
+            if (Session["LoggetInn"] != null && Id != null)
             {
                 bool loggetInn = (bool)Session["LoggetInn"];
                 if (loggetInn)
@@ -169,6 +167,7 @@ namespace Gruppeoppgave1.Controllers
 
                     };
                 }
+
             }
 
             return RedirectToAction("Index");
