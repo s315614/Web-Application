@@ -47,32 +47,39 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-           
 
-        <form class="form-signin">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <span id="reauth-email" class="reauth-email"></span>
-            <div class="control-group">
-                <input type="text" name="Epost" class="form-control" placeholder="Epost">
-                @Html.ValidationMessageFor(model => model.Epost, "", new { @class = "text-danger" })
-            </div>
-            <div style="padding:2%;"></div>
-            <div class="control-group">
-                <input type="password" name="Passord" class="form-control" placeholder="Passord">
-                @Html.ValidationMessageFor(model => model.Passord, "", new { @class = "text-danger" })
-            </div>
-            <br />
-            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
-             @if (!ViewBag.feilBrukernavnPassord)
-             {
-             <p></p>
-             }
-             else
-             {
-             <p style="color:red">Feil brukernavn og passord</p>
-             }
+            if (ViewBag.registrert)
+            {
+                <p style="color:blue">Du er nå registrert! Vennligst fyll under for å logge inn!</p>
+            }
+            else
+            {
+                <p></p>
+            }
+            <form class="form-signin">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <span id="reauth-email" class="reauth-email"></span>
+                <div class="control-group">
+                    <input type="text" name="Epost" class="form-control" placeholder="Epost">
+                    @Html.ValidationMessageFor(model => model.Epost, "", new { @class = "text-danger" })
+                </div>
+                <div style="padding:2%;"></div>
+                <div class="control-group">
+                    <input type="password" name="Passord" class="form-control" placeholder="Passord">
+                    @Html.ValidationMessageFor(model => model.Passord, "", new { @class = "text-danger" })
+                </div>
+                <br />
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                @if (!ViewBag.feilBrukernavnPassord)
+                {
+                    <p></p>
+                }
+                else
+                {
+                    <p style="color:red">Feil brukernavn og passord</p>
+                }
 
-        </form><!-- /form -->
+            </form><!-- /form -->
 
         }
 

@@ -1,10 +1,7 @@
 ﻿using Gruppeoppgave1.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -36,11 +33,25 @@ namespace Gruppeoppgave1.Controllers
 
         public ActionResult Login()
         {
+            if (Session["Registrert"] != null)
+            {
+                bool fraRegistrert = (bool)Session["Registrert"];
+                if (fraRegistrert)
+                {
+                    ViewBag.registrert = true;
+                }
+
+
+            }
+            else ViewBag.registrert = false;
+
+            Session["Registrert"] = null;
 
             if (Session["LoggetInn"] != null)
             {
 
                 bool loggetInn = (bool)Session["LoggetInn"];
+                
                 if (loggetInn)
                 {
                     return RedirectToAction("MainPage");
@@ -85,6 +96,7 @@ namespace Gruppeoppgave1.Controllers
             bool OK = db.lagreBruker(innBruker);
             if (OK)
             {
+                Session["Registrert"] = true;
                 return RedirectToAction("Login");
             }
             return View();
