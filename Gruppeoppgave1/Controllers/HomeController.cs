@@ -161,7 +161,7 @@ namespace Gruppeoppgave1.Controllers
                     }
                     else
                     {
-
+                        funnetFilm.BildeTekst = convertByteToImage(funnetFilm.Bilde);
                         ViewBag.message = epost;
                         return View(funnetFilm);
 
