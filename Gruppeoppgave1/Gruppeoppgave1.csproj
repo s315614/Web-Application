@@ -104,6 +104,7 @@
     <Content Include="Content\ajaxJqueryMainpage.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Image\3id.jpg" />
     <Content Include="Content\Image\BeautyAndTheBeast.jpg" />
     <Content Include="Content\Image\BlackPanther.jpg" />
     <Content Include="Content\Image\Borat.jpg" />
@@ -113,6 +114,7 @@
     <Content Include="Content\Image\drama.jpg" />
     <Content Include="Content\Image\friends.jpg" />
     <Content Include="Content\Image\GetOut.jpg" />
+    <Content Include="Content\Image\harry-potter-wallpaper-hd.jpg" />
     <Content Include="Content\Image\HarryPotter.jpg" />
     <Content Include="Content\Image\HereditaryHorror.jpg" />
     <Content Include="Content\Image\HiddenFigures.jpg" />
@@ -122,7 +124,9 @@
     <Content Include="Content\Image\JohnnyEnglish.jpg" />
     <Content Include="Content\Image\Krypton.jpg" />
     <Content Include="Content\Image\LaLaLand.jpg" />
+    <Content Include="Content\Image\mad.jpg" />
     <Content Include="Content\Image\Mad_Max_Fury_Road.jpg" />
+    <Content Include="Content\Image\Mamma-Mia-Movie-Poster-movie-remakes-3049048-800-600.jpg" />
     <Content Include="Content\Image\mammami.jpg" />
     <Content Include="Content\Image\missionimpossiblefallout.jpg" />
     <Content Include="Content\Image\nemo.jpg" />
