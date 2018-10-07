@@ -59,7 +59,7 @@
                 '<a data-toggle="modal" data-target="#' + item.Id + '">',
                 '<div class="col-xs-3 col-center-block">',
                 '<img class="rounded-circle" src="' + imgSrc + '" alt="Generic placeholder image"/>',
-
+                '<p></p>',
                 '</div>',
                 '</a>',
 
