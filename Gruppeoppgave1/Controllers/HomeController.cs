@@ -97,6 +97,8 @@ namespace Gruppeoppgave1.Controllers
                 Session["Registrert"] = true;
                 return RedirectToAction("Login");
             }
+
+            ViewBag.ikkelagret = true;
             return View();
 
         }

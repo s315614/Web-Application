@@ -13,6 +13,18 @@ namespace Gruppeoppgave1.Models
         protected override void Seed(DBContext context)
         {
 
+            byte[] passord = lagHash("123456");
+
+            var nyBruker = new Brukere()
+            {
+                Epost = "Admin@gmail.com",
+                Adresse = "Skolengata12",
+                Etternavn = "Timsom",
+                Fornavn = "Tommy",
+                Fødselsdato = "12-23-1997",
+                Telefon = "95234352",
+                Passord = passord
+            };
             
 
             var nyKategori1 = new Kategorier()
@@ -370,7 +382,7 @@ namespace Gruppeoppgave1.Models
             filmList.Add(nyFilm31);
 
 
-            //context.Brukere.Add(nyBruker);
+            context.Brukere.Add(nyBruker);
 
             context.Kategorier.AddRange(kategoriList);
 
@@ -396,7 +408,16 @@ namespace Gruppeoppgave1.Models
             return arr;
         }
 
-        
+        private static byte[] lagHash(string innPassord)
+        {
+            byte[] innData, utData;
+            var algoritme = System.Security.Cryptography.SHA256.Create();
+            innData = System.Text.Encoding.ASCII.GetBytes(innPassord);
+            utData = algoritme.ComputeHash(innData);
+            return utData;
+        }
+
+
 
     }
 }
