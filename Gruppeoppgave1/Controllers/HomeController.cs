@@ -152,7 +152,7 @@ namespace Gruppeoppgave1.Controllers
                     else
                     {
 
-                        ViewBag.message = "Welcome " + epost;
+                        ViewBag.message = epost;
                         return View(funnetFilm);
 
                     };
