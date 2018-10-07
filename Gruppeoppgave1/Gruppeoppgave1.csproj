@@ -124,6 +124,8 @@
     <Content Include="Content\Image\JohnnyEnglish.jpg" />
     <Content Include="Content\Image\Krypton.jpg" />
     <Content Include="Content\Image\LaLaLand.jpg" />
+    <Content Include="Content\Image\Logo.jpg" />
+    <Content Include="Content\Image\Logo.png" />
     <Content Include="Content\Image\mad.jpg" />
     <Content Include="Content\Image\Mad_Max_Fury_Road.jpg" />
     <Content Include="Content\Image\Mamma-Mia-Movie-Poster-movie-remakes-3049048-800-600.jpg" />
